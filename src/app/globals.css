@@ -1,0 +1,202 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+/*
+ * Design tokens — "Mystic Academy Lumina" (see design DESIGN.md).
+ * Edit here when Figma changes; every screen reads from these.
+ */
+@theme {
+  /* ---- Fonts ---- */
+  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
+
+  /* Typography roles (font-<role> + text-<role>) */
+  --font-headline-xl: var(--font-jakarta), sans-serif;
+  --font-headline-xl-mobile: var(--font-jakarta), sans-serif;
+  --font-headline-lg: var(--font-jakarta), sans-serif;
+  --font-headline-md: var(--font-jakarta), sans-serif;
+  --font-body-lg: var(--font-jakarta), sans-serif;
+  --font-body-md: var(--font-jakarta), sans-serif;
+  --font-body-sm: var(--font-jakarta), sans-serif;
+  --font-label-md: var(--font-jakarta), sans-serif;
+  --font-label-sm: var(--font-jakarta), sans-serif;
+
+  --text-headline-xl: 36px;
+  --text-headline-xl--line-height: 44px;
+  --text-headline-xl--letter-spacing: -0.02em;
+  --text-headline-xl--font-weight: 700;
+  --text-headline-xl-mobile: 26px;
+  --text-headline-xl-mobile--line-height: 32px;
+  --text-headline-xl-mobile--letter-spacing: -0.01em;
+  --text-headline-xl-mobile--font-weight: 700;
+  --text-headline-lg: 24px;
+  --text-headline-lg--line-height: 32px;
+  --text-headline-lg--letter-spacing: -0.01em;
+  --text-headline-lg--font-weight: 700;
+  --text-headline-md: 18px;
+  --text-headline-md--line-height: 26px;
+  --text-headline-md--font-weight: 600;
+  --text-body-lg: 16px;
+  --text-body-lg--line-height: 24px;
+  --text-body-md: 14px;
+  --text-body-md--line-height: 22px;
+  --text-body-sm: 12px;
+  --text-body-sm--line-height: 18px;
+  --text-label-md: 13px;
+  --text-label-md--line-height: 18px;
+  --text-label-md--letter-spacing: 0.01em;
+  --text-label-md--font-weight: 600;
+  --text-label-sm: 11px;
+  --text-label-sm--line-height: 14px;
+  --text-label-sm--letter-spacing: 0.02em;
+  --text-label-sm--font-weight: 600;
+
+  /* ---- Material-style color roles ---- */
+  --color-surface: #fdf7ff;
+  --color-surface-dim: #ded7e7;
+  --color-surface-bright: #fdf7ff;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f8f1ff;
+  --color-surface-container: #f2ebfb;
+  --color-surface-container-high: #ede5f5;
+  --color-surface-container-highest: #e7e0ef;
+  --color-surface-variant: #e7e0ef;
+  --color-surface-card: #ffffff;
+  --color-surface-tint: #733ccd;
+  --color-on-surface: #1d1a25;
+  --color-on-surface-variant: #4a4454;
+  --color-inverse-surface: #322f3a;
+  --color-inverse-on-surface: #f5eefe;
+  --color-outline: #7b7485;
+  --color-outline-variant: #ccc3d6;
+  --color-background: #fdf7ff;
+  --color-on-background: #1d1a25;
+
+  --color-primary: #5104ab;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #6930c3;
+  --color-on-primary-container: #d7bfff;
+  --color-inverse-primary: #d4bbff;
+  --color-primary-fixed: #ebdcff;
+  --color-primary-fixed-dim: #d4bbff;
+  --color-on-primary-fixed: #260058;
+  --color-on-primary-fixed-variant: #5a1ab4;
+
+  --color-secondary: #605d69;
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: #e6e0ef;
+  --color-on-secondary-container: #66636f;
+  --color-secondary-fixed: #e6e0ef;
+  --color-secondary-fixed-dim: #c9c4d3;
+  --color-on-secondary-fixed: #1c1a25;
+  --color-on-secondary-fixed-variant: #484551;
+
+  --color-tertiary: #522b77;
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #6a4390;
+  --color-on-tertiary-container: #e0bcff;
+  --color-tertiary-fixed: #f0dbff;
+  --color-tertiary-fixed-dim: #ddb7ff;
+  --color-on-tertiary-fixed: #2c0050;
+  --color-on-tertiary-fixed-variant: #5b3480;
+
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+
+  /* ---- Brand scale (learner panel screens) ---- */
+  --color-brand-50: #f6f3fc;
+  --color-brand-100: #eee6f9;
+  --color-brand-200: #ddcbf3;
+  --color-brand-500: #7c3aed;
+  --color-brand-600: #6930c3;
+  --color-brand-700: #5a25ab;
+  --color-brand-800: #4c1d95;
+  --color-brand-900: #3a137b;
+  --color-brand-active: #7815b3;
+  --color-brand-dark: #4c1d95;
+  --color-brand-purple: #6930c3;
+  --color-brand-purple-dark: #4e2395;
+  --color-brand-purple-deep: #230b42;
+  --color-brand-purple-light: #f3e8ff;
+  --color-brand-gold: #ffb703;
+  --color-gold: #e0a93b;
+  --color-live: #e53935;
+  --color-whatsapp: #25d366;
+  --color-neutral-bg: #f9f9fb;
+
+  /* ---- Spacing tokens ---- */
+  --spacing-gutter: 1.5rem;
+  --spacing-gutter-mobile: 0.75rem;
+  --spacing-margin: 2rem;
+  --spacing-margin-mobile: 1rem;
+  --spacing-space-xs: 0.25rem;
+  --spacing-space-sm: 0.5rem;
+  --spacing-space-md: 1rem;
+  --spacing-space-lg: 1.5rem;
+  --spacing-space-xl: 2.25rem;
+
+  /* ---- Elevation ---- */
+  --shadow-level-1: 0 2px 10px -2px rgba(105, 48, 195, 0.04), 0 1px 3px 0 rgba(0, 0, 0, 0.02);
+  --shadow-level-2: 0 8px 24px -4px rgba(105, 48, 195, 0.1), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+  --shadow-level-3: 0 20px 40px -10px rgba(60, 19, 97, 0.16);
+}
+
+/* Tailwind v3 parity: the screens were authored against v3 defaults. */
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentcolor);
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+  body {
+    font-family: var(--font-sans);
+    color: var(--color-on-surface);
+    background: #fafbfc;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+@utility no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility hero-gradient {
+  background: linear-gradient(135deg, #1b0933 0%, #30105c 45%, #4c1d95 100%);
+}
+
+@utility cosmic-gradient {
+  background: linear-gradient(135deg, #3c1361 0%, #1e1b26 100%);
+}
+
+.material-symbols-outlined {
+  font-family: "Material Symbols Outlined";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  direction: ltr;
+  user-select: none;
+  -webkit-font-feature-settings: "liga";
+  -webkit-font-smoothing: antialiased;
+}
