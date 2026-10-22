@@ -1,3 +1,4 @@
+import { User } from "lucide-react";
 import type { ReactNode } from "react";
 import { OgLogo } from "./BrandMark";
 
@@ -23,7 +24,7 @@ export function AuthShell({ children }: { children: ReactNode }) {
             </a>
           </nav>
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-primary">
-            <span className="material-symbols-outlined text-[18px] text-on-primary">person</span>
+            <User className="size-[18px] text-on-primary" />
           </div>
         </div>
       </header>

@@ -1,5 +1,6 @@
 "use client";
 
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "../api/cart.queries";
 import { useCartUi } from "../store";
 import { CartDrawer } from "./CartDrawer";
@@ -19,7 +20,7 @@ export function CartButton() {
         aria-label={count ? `Cart, ${count} ${count === 1 ? "item" : "items"}` : "Cart"}
         className="relative rounded-full p-2 text-gray-600 transition-colors hover:bg-gray-100"
       >
-        <i className="fa-solid fa-cart-shopping text-[17px]" />
+        <ShoppingCart className="size-[17px]" />
         {count > 0 && (
           <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-brand-600 px-1 text-[10px] font-bold text-white ring-2 ring-white">
             {count}

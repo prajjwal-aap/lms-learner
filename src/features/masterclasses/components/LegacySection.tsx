@@ -1,8 +1,12 @@
-import { OgLogo } from "@/components/layout";
+import Image from "next/image";
 
 const PERKS =["Verified Certification", "Lifetime Community Access"];
 
-/** "Our Legacy" block with the certificate illustration. */
+/** Intrinsic size of public/images/certificate.jpg. */
+const CERT_WIDTH = 1432;
+const CERT_HEIGHT = 2036;
+
+/** "Our Legacy" block with a sample certificate. */
 export function LegacySection() {
   return (
     <section className="py-16 bg-white border-y border-slate-100" data-purpose="legacy-certificate">
@@ -32,26 +36,16 @@ export function LegacySection() {
               ))}
             </div>
           </div>
-          {/* Certificate illustration card */}
+          {/* Sample certificate */}
           <div className="flex justify-center">
-            <div className="relative bg-linear-to-tr from-amber-50 to-orange-50 border-8 border-amber-200/80 rounded-2xl shadow-xl p-8 max-w-md w-full text-center transform hover:-translate-y-1 transition duration-300">
-              <div className="border border-amber-300/80 p-6 rounded-xl flex flex-col items-center">
-                <OgLogo className="h-12 mb-2" />
-                <p className="text-[10px] tracking-widest uppercase text-amber-700 font-semibold">CERTIFICATE OF COMPLETION</p>
-                <div className="w-12 h-0.5 bg-amber-400 my-2" />
-                <p className="text-[11px] text-slate-500 italic">This certificate is awarded to</p>
-                <h4 className="font-serif italic text-2xl my-2 text-brand-700">Your Name</h4>
-                <p className="text-[11px] text-slate-600 max-w-xs">for completing Occult Gurukul’s</p>
-                <p className="text-xs font-bold text-slate-800 mt-1 uppercase tracking-wide">
-                  Advance Numerology Mentorship Program
-                </p>
-                <p className="text-[10px] text-slate-500">by Astro Arun Pandit</p>
-                <div className="mt-6 pt-4 border-t border-amber-200 w-full flex justify-between items-center text-[10px] text-slate-400">
-                  <span>VERIFIED ID: OG-9821</span>
-                  <span>CHIEF MENTOR</span>
-                </div>
-              </div>
-            </div>
+            <Image
+              src="/images/certificate.jpg"
+              alt="Sample Occult Gurukul certificate of completion"
+              width={CERT_WIDTH}
+              height={CERT_HEIGHT}
+              sizes="(min-width: 768px) 28rem, 100vw"
+              className="max-w-sm w-full h-auto rounded-2xl shadow-xl transform hover:-translate-y-1 transition duration-300"
+            />
           </div>
         </div>
       </div>

@@ -1,12 +1,13 @@
 "use client";
 
+import { ArrowRight, ClipboardList, Download, FileText, Headphones, LoaderCircle, Lock, Play, TriangleAlert, Video } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { useMemo, useState, type ReactNode } from "react";
 import { ROUTES } from "@/config/routes";
 import { track } from "@/lib/analytics";
 import { openInNewTab } from "@/lib/openInNewTab";
-import { cn } from "@/lib/utils";
 import { sanitizeHtml } from "@/lib/sanitizeHtml";
 import { startPlayback } from "../../api/learning.api";
 import { formatDuration, lmsErrorMessage, LESSON_ICON } from "../../lib/learning";
@@ -30,7 +31,7 @@ export function LessonStage({ courseId, summary, detail, detailError, label, nex
   if (detailError) {
     const msg = lmsErrorMessage(detailError);
     return (
-      <StageCard icon={msg.code === "LOCKED" ? "fa-lock" : "fa-triangle-exclamation"}>
+      <StageCard icon={msg.code === "LOCKED" ? Lock : TriangleAlert}>
         <p className="text-lg font-semibold text-white">{msg.title}</p>
         <p className="mt-1 max-w-md text-sm text-white/70">{msg.text}</p>
       </StageCard>
@@ -59,7 +60,7 @@ export function LessonStage({ courseId, summary, detail, detailError, label, nex
       return <TextStage html={detail.lesson.text_content ?? ""} />;
     case "LIVE":
       return (
-        <StageCard icon="fa-video">
+        <StageCard icon={Video}>
           <p className="text-lg font-semibold text-white">{detail.lesson.title}</p>
           <p className="mt-1 text-sm text-white/70">This lesson is a live class. Join it from Live Sessions when it starts.</p>
           <Link href={ROUTES.liveSessions} className="mt-5 rounded-lg bg-white px-5 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50">
@@ -69,7 +70,7 @@ export function LessonStage({ courseId, summary, detail, detailError, label, nex
       );
     default:
       return (
-        <StageCard icon="fa-clipboard-question">
+        <StageCard icon={ClipboardList}>
           <p className="text-lg font-semibold text-white">{detail.lesson.title}</p>
           <p className="mt-1 text-sm text-white/70">Quizzes are coming soon.</p>
         </StageCard>
@@ -77,13 +78,13 @@ export function LessonStage({ courseId, summary, detail, detailError, label, nex
   }
 }
 
-function StageCard({ icon, children }: { icon: string; children: ReactNode }) {
+function StageCard({ icon: Icon, children }: { icon: LucideIcon; children: ReactNode }) {
   return (
     <div className="hero-gradient relative flex min-h-[320px] w-full flex-col items-center justify-center overflow-hidden px-6 py-12 text-center">
       <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(#fff_1px,transparent_1px)] opacity-10 [background-size:16px_16px]" />
       <div className="relative flex flex-col items-center">
         <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-white/10 ring-1 ring-white/20">
-          <i className={cn("fa-solid text-xl text-amber-300", icon)} />
+          <Icon className="size-5 text-amber-300" />
         </div>
         {children}
       </div>
@@ -116,7 +117,7 @@ function MediaStage({ courseId, detail, label, nextLesson, onProgressMaybeChange
               <span className="text-white/60">Up next:</span> {nextLesson.title}
             </span>
             <Link href={ROUTES.lesson(courseId, nextLesson.id)} className="shrink-0 rounded-lg bg-brand-600 px-4 py-2 font-semibold hover:bg-brand-700">
-              Next lesson <i className="fa-solid fa-arrow-right ml-1 text-xs" />
+              Next lesson <ArrowRight className="ml-1 inline-block size-3 align-[-0.125em]" />
             </Link>
           </div>
         )}
@@ -149,7 +150,13 @@ function MediaStage({ courseId, detail, label, nextLesson, onProgressMaybeChange
           aria-label={`Play ${lesson.title}`}
           className="group relative flex h-16 w-16 items-center justify-center rounded-full bg-white/15 text-white ring-1 ring-white/30 backdrop-blur-sm transition hover:scale-110 hover:bg-brand-600 disabled:opacity-70 sm:h-20 sm:w-20"
         >
-          <i className={cn("fa-solid text-2xl sm:text-3xl", play.isPending ? "fa-spinner animate-spin" : lesson.type === "AUDIO" ? "fa-headphones" : "fa-play translate-x-0.5")} />
+          {play.isPending ? (
+            <LoaderCircle className="size-6 animate-spin sm:size-[30px]" />
+          ) : lesson.type === "AUDIO" ? (
+            <Headphones className="size-6 sm:size-[30px]" />
+          ) : (
+            <Play className="size-6 translate-x-0.5 sm:size-[30px]" fill="currentColor" />
+          )}
         </button>
       )}
       <span className="relative text-xs font-medium text-white/70">
@@ -172,7 +179,7 @@ function PdfStage({ courseId, lessonId }: { courseId: string; lessonId: string }
   if (error || !data || data.provider !== "SIGNED_URL") {
     const msg = lmsErrorMessage(error);
     return (
-      <StageCard icon="fa-file-pdf">
+      <StageCard icon={FileText}>
         <p className="text-lg font-semibold text-white">{msg.title}</p>
         <p className="mt-1 max-w-md text-sm text-white/70">{msg.text}</p>
       </StageCard>
@@ -203,7 +210,7 @@ function DownloadStage({ courseId, detail }: { courseId: string; detail: LessonD
         disabled={download.isPending}
         className="mt-5 rounded-lg bg-white px-5 py-2 text-sm font-semibold text-brand-700 hover:bg-brand-50 disabled:opacity-60"
       >
-        <i className="fa-solid fa-download mr-2" />
+        <Download className="mr-2 inline-block size-3.5 align-[-0.125em]" />
         {download.isPending ? "Preparing…" : "Download file"}
       </button>
       {download.error && <p className="mt-2 text-xs text-red-200">{lmsErrorMessage(download.error).text}</p>}

@@ -18,7 +18,7 @@ export function OgLogo({ className, preload = false }: { className?: string; pre
 }
 
 /** Logo linking home, used in the learner header. */
-export function BrandMark({ href = ROUTES.community }: { href?: string }) {
+export function BrandMark({ href = ROUTES.home }: { href?: string }) {
   return (
     <Link aria-label="Occult Gurukul home" href={href} className="flex shrink-0 items-center">
       <OgLogo preload />

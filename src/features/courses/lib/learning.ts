@@ -1,3 +1,5 @@
+import { CirclePlay, ClipboardList, Download, FileText, Headphones, ScrollText, Video } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { isApiError } from "@/lib/api";
 import type { CourseHome, LessonSummary, LessonType } from "../types";
 
@@ -10,14 +12,14 @@ export function formatDuration(totalSec: number | null | undefined): string {
   return h > 0 ? `${h}hr ${m}min` : m > 0 ? `${m}min${s ? ` ${s}s` : ""}` : `${s}s`;
 }
 
-export const LESSON_ICON: Record<LessonType, string> = {
-  VIDEO: "fa-circle-play",
-  AUDIO: "fa-headphones",
-  PDF: "fa-file-pdf",
-  TEXT: "fa-file-lines",
-  QUIZ: "fa-clipboard-question",
-  LIVE: "fa-video",
-  DOWNLOAD: "fa-download",
+export const LESSON_ICON: Record<LessonType, LucideIcon> = {
+  VIDEO: CirclePlay,
+  AUDIO: Headphones,
+  PDF: FileText,
+  TEXT: ScrollText,
+  QUIZ: ClipboardList,
+  LIVE: Video,
+  DOWNLOAD: Download,
 };
 
 export const LESSON_LABEL: Record<LessonType, string> = {

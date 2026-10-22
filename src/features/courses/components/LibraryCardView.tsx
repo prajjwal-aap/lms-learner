@@ -1,3 +1,4 @@
+import { Calendar, CircleCheck } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/config/routes";
 import { ProductThumb } from "@/components/ui/ProductThumb";
@@ -80,7 +81,7 @@ export function LibraryCardView({ card }: { card: LibraryCard }) {
 
           {card.purchase ? (
             <p className="mb-4 mt-1.5 text-xs text-gray-500">
-              <i className="fa-solid fa-circle-check mr-1.5 text-emerald-600" />
+              <CircleCheck className="mr-1.5 inline-block size-3 align-[-0.125em] text-emerald-600" />
               Purchased
               {card.purchase.classDate && ` • ${card.purchase.classDate.slice(0, 16)} IST`}
               {card.resource.type === "PUBLICATION" && !card.purchase.downloadUrl && (
@@ -91,7 +92,7 @@ export function LibraryCardView({ card }: { card: LibraryCard }) {
             <p className="mb-4 mt-1.5 text-xs text-gray-500">
               {p.next_session ? (
                 <>
-                  <i className="fa-regular fa-calendar mr-1.5" />
+                  <Calendar className="mr-1.5 inline-block size-3 align-[-0.125em]" />
                   Next: {formatWhen(p.next_session.scheduled_at)}
                 </>
               ) : (

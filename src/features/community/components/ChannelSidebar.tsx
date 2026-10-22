@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown, Plus } from "lucide-react";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import type { CommunitySidebar } from "../types";
@@ -33,7 +34,7 @@ export function ChannelSidebar({ data, activeId, onSelect, onCreate }: ChannelSi
         onClick={onCreate}
         className="flex w-full items-center justify-center rounded-md bg-[#757575] px-4 py-2 text-sm font-medium text-white shadow-xs transition hover:bg-[#616161]"
       >
-        <i className="fa-solid fa-plus mr-2 text-xs" />
+        <Plus className="mr-2 size-3 shrink-0" />
         Create
       </button>
 
@@ -48,6 +49,7 @@ export function ChannelSidebar({ data, activeId, onSelect, onCreate }: ChannelSi
           <nav className="space-y-1">
             {data.nav.map((item) => {
               const active = item.id === activeId;
+              const Icon = item.icon;
               return (
                 <button
                   key={item.id}
@@ -60,7 +62,7 @@ export function ChannelSidebar({ data, activeId, onSelect, onCreate }: ChannelSi
                   )}
                 >
                   <div className="flex items-center space-x-3">
-                    <i className={cn(item.icon, "text-base", active ? "text-[#6e2594]" : "text-gray-600")} />
+                    <Icon className={cn("size-4 shrink-0", active ? "text-[#6e2594]" : "text-gray-600")} />
                     <span>{item.label}</span>
                   </div>
                   {item.badge ? <Badge count={item.badge} className="text-[11px] font-semibold" /> : null}
@@ -80,7 +82,7 @@ export function ChannelSidebar({ data, activeId, onSelect, onCreate }: ChannelSi
                   className="flex w-full items-center justify-between px-2 py-1.5 text-xs font-medium text-gray-800"
                 >
                   <div className="flex items-center space-x-2">
-                    <i className={cn("fa-solid fa-caret-down text-xs text-purple-900 transition-transform", !open && "-rotate-90")} />
+                    <ChevronDown className={cn("size-3 shrink-0 text-purple-900 transition-transform", !open && "-rotate-90")} />
                     <span className="text-xs font-semibold">{group.name}</span>
                     {group.hasUnread && <span className="inline-block h-1.5 w-1.5 rounded-full bg-[#d32f2f]" />}
                   </div>
@@ -89,6 +91,7 @@ export function ChannelSidebar({ data, activeId, onSelect, onCreate }: ChannelSi
                   <div className="mt-1 pl-2">
                     {group.channels.map((ch) => {
                       const active = ch.id === activeId;
+                      const Icon = ch.icon;
                       return (
                         <button
                           key={ch.id}
@@ -101,9 +104,7 @@ export function ChannelSidebar({ data, activeId, onSelect, onCreate }: ChannelSi
                           )}
                         >
                           <div className="flex items-center space-x-2.5 overflow-hidden">
-                            <span className={cn("text-sm", ch.iconClassName)}>
-                              <i className={ch.icon} />
-                            </span>
+                            <Icon className={cn("size-3.5 shrink-0", ch.iconClassName)} />
                             <span className={cn("truncate", active ? "text-[#5e227f]" : "text-gray-700")}>{ch.name}</span>
                           </div>
                           {ch.badge ? <Badge count={ch.badge} className="text-[10px] font-bold" /> : null}
@@ -135,11 +136,12 @@ export function MobileChannelBar({ data, activeId, onSelect, onCreate }: Channel
         onClick={onCreate}
         className="flex shrink-0 items-center rounded-full bg-[#757575] px-3 py-1.5 text-xs font-medium text-white"
       >
-        <i className="fa-solid fa-plus mr-1.5 text-[10px]" />
+        <Plus className="mr-1.5 size-2.5 shrink-0" />
         Create
       </button>
       {items.map((item) => {
         const active = item.id === activeId;
+        const Icon = item.icon;
         return (
           <button
             key={item.id}
@@ -150,7 +152,7 @@ export function MobileChannelBar({ data, activeId, onSelect, onCreate }: Channel
               active ? "border-[#e5d0f0] bg-[#f3e8f8] text-[#5e227f]" : "border-gray-200 bg-white text-gray-700",
             )}
           >
-            <i className={item.icon} />
+            <Icon className="size-3 shrink-0" />
             <span className="truncate">{item.label}</span>
             {item.badge ? <Badge count={item.badge} className="text-[10px] font-bold" /> : null}
           </button>

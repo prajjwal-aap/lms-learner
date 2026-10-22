@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, ChevronDown } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 
@@ -61,14 +62,9 @@ export function FilterDropdownPill<T extends string>({ label, value, emptyValue,
         )}
       >
         <span>{active && current ? current.label : label}</span>
-        <svg
-          className={cn("h-3.5 w-3.5 transition-transform", active ? "text-brand-800" : "text-gray-500", open && "rotate-180")}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path d="M19 9l-7 7-7-7" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" />
-        </svg>
+        <ChevronDown
+          className={cn("size-3.5 shrink-0 transition-transform", active ? "text-brand-800" : "text-gray-500", open && "rotate-180")}
+        />
       </button>
       {anchor && (
         <ul
@@ -92,7 +88,7 @@ export function FilterDropdownPill<T extends string>({ label, value, emptyValue,
                 )}
               >
                 {o.label}
-                {o.value === value && <i className="fa-solid fa-check text-xs" />}
+                {o.value === value && <Check className="size-3 shrink-0" />}
               </button>
             </li>
           ))}

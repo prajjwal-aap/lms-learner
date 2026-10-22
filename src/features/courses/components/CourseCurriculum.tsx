@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronDown, CircleCheck, Contrast, Lock } from "lucide-react";
 import Link from "next/link";
 import { useLayoutEffect, useRef, useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -64,13 +65,13 @@ export function CourseCurriculum({ courseId, sections, activeLessonId, variant =
               <div className="min-w-0">
                 <span className="flex items-center gap-2 text-sm font-semibold text-gray-900">
                   <span className="min-w-0">{section.title}</span>
-                  {allLocked && <i className="fa-solid fa-lock text-[11px] text-gray-400" aria-label="Locked" />}
+                  {allLocked && <Lock className="size-[11px] shrink-0 text-gray-400" aria-label="Locked" />}
                 </span>
                 <span className="mt-0.5 block text-xs text-gray-500">
                   {done} / {section.lessons.length} complete{seconds > 0 && ` • ${formatDuration(seconds)}`}
                 </span>
               </div>
-              <i className={cn("fa-solid fa-chevron-down mt-1 text-xs text-gray-500 transition-transform", isOpen && "rotate-180")} />
+              <ChevronDown className={cn("mt-1 size-3 shrink-0 text-gray-500 transition-transform", isOpen && "rotate-180")} />
             </button>
             {isOpen && (
               <ul className="divide-y divide-gray-100 border-t border-gray-100">
@@ -87,13 +88,14 @@ export function CourseCurriculum({ courseId, sections, activeLessonId, variant =
 }
 
 function StatusIcon({ lesson: l }: { lesson: LessonSummary }) {
-  if (l.locked) return <i className="fa-solid fa-lock w-4 text-center text-xs text-gray-400" aria-label="Locked" />;
-  if (l.status === "COMPLETED") return <i className="fa-solid fa-circle-check w-4 text-center text-base text-emerald-600" aria-label="Completed" />;
-  if (l.status === "IN_PROGRESS") return <i className="fa-solid fa-circle-half-stroke w-4 text-center text-base text-brand-500" aria-label="In progress" />;
+  if (l.locked) return <Lock className="mx-0.5 size-3 text-gray-400" aria-label="Locked" />;
+  if (l.status === "COMPLETED") return <CircleCheck className="size-4 text-emerald-600" aria-label="Completed" />;
+  if (l.status === "IN_PROGRESS") return <Contrast className="size-4 text-brand-500" aria-label="In progress" />;
   return <span className="block h-4 w-4 rounded-full border-2 border-gray-300" aria-label="Not started" />;
 }
 
 function LessonRow({ courseId, lesson: l, index, active, sidebar }: { courseId: string; lesson: LessonSummary; index: number; active: boolean; sidebar: boolean }) {
+  const TypeIcon = LESSON_ICON[l.type];
   const body = (
     <>
       <span className="mt-0.5 shrink-0">
@@ -105,7 +107,7 @@ function LessonRow({ courseId, lesson: l, index, active, sidebar }: { courseId: 
         </span>
         <span className="mt-1 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[11px] text-gray-400">
           <span>
-            <i className={cn("fa-solid mr-1", LESSON_ICON[l.type])} />
+            <TypeIcon className="mr-1 inline-block size-[11px] align-[-0.125em]" />
             {lessonMeta(l)}
           </span>
           {l.locked && l.lock_reason === "DRIP" && l.unlock_at && <span className="font-medium text-amber-600">Opens {formatWhen(l.unlock_at)}</span>}

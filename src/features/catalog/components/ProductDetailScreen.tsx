@@ -1,5 +1,31 @@
 "use client";
 
+import {
+  ArrowLeft,
+  Award,
+  Ban,
+  Book,
+  BookOpen,
+  Check,
+  ChevronDown,
+  Circle,
+  CirclePlay,
+  ClipboardList,
+  Download,
+  FileText,
+  Film,
+  Headphones,
+  Infinity as InfinityIcon,
+  Languages,
+  ListChecks,
+  Signal,
+  Star,
+  UserCheck,
+  UserRound,
+  Users,
+  Video,
+  type LucideIcon,
+} from "lucide-react";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -16,16 +42,16 @@ import { PurchasePanel } from "./PurchasePanel";
 
 const card = "rounded-2xl border border-purple-100 bg-white p-6 shadow-xs";
 /** Icon names the catalog sends in `product.includes[].icon`. */
-const INCLUDE_ICON: Record<string, string> = {
-  LIVE: "fa-video",
-  RECORDING: "fa-circle-play",
-  CERTIFICATE: "fa-award",
-  LIFETIME: "fa-infinity",
-  COMMUNITY: "fa-users",
-  NOTES: "fa-file-lines",
-  DOWNLOAD: "fa-download",
+const INCLUDE_ICON: Record<string, LucideIcon> = {
+  LIVE: Video,
+  RECORDING: CirclePlay,
+  CERTIFICATE: Award,
+  LIFETIME: InfinityIcon,
+  COMMUNITY: Users,
+  NOTES: FileText,
+  DOWNLOAD: Download,
 };
-const LESSON_ICON: Record<string, string> ={ VIDEO: "fa-circle-play", AUDIO: "fa-headphones", PDF: "fa-file-pdf", TEXT: "fa-file-lines", QUIZ: "fa-clipboard-question", LIVE: "fa-video", DOWNLOAD: "fa-download" };
+const LESSON_ICON: Record<string, LucideIcon> ={ VIDEO: CirclePlay, AUDIO: Headphones, PDF: FileText, TEXT: FileText, QUIZ: ClipboardList, LIVE: Video, DOWNLOAD: Download };
 
 /** Product page (GET /catalog/v1/products/:slug). */
 export function ProductDetailScreen({ slug }: { slug: string }) {
@@ -71,7 +97,7 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
     <div className="bg-[#fbf9fd]">
       <main className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <Link href={ROUTES.store} className="mb-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700">
-          <i className="fa-solid fa-arrow-left text-xs" />
+          <ArrowLeft className="size-3 shrink-0" />
           Courses
         </Link>
 
@@ -97,38 +123,38 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
               <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-purple-100">
                 {product.rating && (
                   <span>
-                    <i className="fa-solid fa-star mr-1.5 text-amber-300" />
+                    <Star className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" fill="currentColor" />
                     {product.rating.avg.toFixed(1)} ({product.rating.count_display ?? product.rating.count} ratings)
                   </span>
                 )}
                 {product.mentors.length > 0 && (
                   <span>
-                    <i className="fa-solid fa-user-tie mr-1.5 text-amber-300" />
+                    <UserRound className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />
                     {product.mentors.map((m) => m.display_name).join(", ")}
                   </span>
                 )}
                 {product.language && (
                   <span>
-                    <i className="fa-solid fa-language mr-1.5 text-amber-300" />
+                    <Languages className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />
                     {LANGUAGE_LABEL[product.language]}
                   </span>
                 )}
                 {product.level && (
                   <span>
-                    <i className="fa-solid fa-signal mr-1.5 text-amber-300" />
+                    <Signal className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />
                     {LEVEL_LABEL[product.level]}
                   </span>
                 )}
                 {page.curriculum && (
                   <span>
-                    <i className="fa-solid fa-film mr-1.5 text-amber-300" />
+                    <Film className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />
                     {page.curriculum.lesson_count} lessons
                     {page.curriculum.total_duration_sec > 0 && ` • ${formatHours(page.curriculum.total_duration_sec)}`}
                   </span>
                 )}
                 {page.publication && (
                   <span>
-                    <i className="fa-solid fa-book mr-1.5 text-amber-300" />
+                    <Book className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />
                     {page.publication.page_count} pages
                   </span>
                 )}
@@ -146,12 +172,15 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
                 {product.description && <p className="whitespace-pre-line text-sm leading-relaxed text-gray-600">{product.description}</p>}
                 {product.includes && product.includes.length > 0 && (
                   <ul className="grid gap-2 border-t border-gray-100 pt-4 sm:grid-cols-2">
-                    {product.includes.map((i) => (
-                      <li key={i.label} className="flex items-center gap-2.5 text-sm text-gray-700">
-                        <i className={cn("fa-solid w-4 text-center text-brand-600", INCLUDE_ICON[i.icon] ?? "fa-check")} />
-                        {i.label}
-                      </li>
-                    ))}
+                    {product.includes.map((i) => {
+                      const Icon = INCLUDE_ICON[i.icon] ?? Check;
+                      return (
+                        <li key={i.label} className="flex items-center gap-2.5 text-sm text-gray-700">
+                          <Icon className="size-4 shrink-0 text-brand-600" />
+                          {i.label}
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </section>
@@ -163,7 +192,7 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {page.page.outcomes.map((o) => (
                     <li key={o} className="flex gap-2.5 text-sm text-gray-700">
-                      <i className="fa-solid fa-check mt-1 text-xs text-brand-600" />
+                      <Check className="mt-1 size-3 shrink-0 text-brand-600" />
                       {o}
                     </li>
                   ))}
@@ -189,11 +218,15 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
                 <h2 className="mb-3 text-lg font-bold text-gray-900">About this e-book</h2>
                 <ul className="space-y-2 text-sm text-gray-700">
                   <li>
-                    <i className="fa-solid fa-book-open mr-2 text-brand-600" />
+                    <BookOpen className="mr-2 inline-block size-3.5 align-[-0.125em] text-brand-600" />
                     {page.publication.page_count} pages, read in the app with your progress saved
                   </li>
                   <li>
-                    <i className={cn("fa-solid mr-2 text-brand-600", page.publication.allow_download ? "fa-download" : "fa-ban")} />
+                    {page.publication.allow_download ? (
+                      <Download className="mr-2 inline-block size-3.5 align-[-0.125em] text-brand-600" />
+                    ) : (
+                      <Ban className="mr-2 inline-block size-3.5 align-[-0.125em] text-brand-600" />
+                    )}
                     {page.publication.allow_download ? "PDF download included" : "Read online only (no download)"}
                   </li>
                 </ul>
@@ -202,8 +235,8 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
 
             {(page.page.who_is_it_for.length > 0 || page.page.requirements.length > 0) && (
               <section className={cn(card, "grid gap-6 sm:grid-cols-2")}>
-                {page.page.who_is_it_for.length > 0 && <BulletList title="Who it's for" icon="fa-user-check" items={page.page.who_is_it_for} />}
-                {page.page.requirements.length > 0 && <BulletList title="Requirements" icon="fa-list-check" items={page.page.requirements} />}
+                {page.page.who_is_it_for.length > 0 && <BulletList title="Who it's for" icon={UserCheck} items={page.page.who_is_it_for} />}
+                {page.page.requirements.length > 0 && <BulletList title="Requirements" icon={ListChecks} items={page.page.requirements} />}
               </section>
             )}
 
@@ -234,7 +267,7 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
                     <details key={i} className="group py-3">
                       <summary className="flex cursor-pointer list-none items-center justify-between gap-3 text-sm font-semibold text-gray-900">
                         {f.q}
-                        <i className="fa-solid fa-chevron-down text-xs text-gray-400 transition group-open:rotate-180" />
+                        <ChevronDown className="size-3 shrink-0 text-gray-400 transition group-open:rotate-180" />
                       </summary>
                       <p className="mt-2 text-sm leading-relaxed text-gray-600">{f.a}</p>
                     </details>
@@ -292,14 +325,14 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
   );
 }
 
-function BulletList({ title, icon, items }: { title: string; icon: string; items: string[] }) {
+function BulletList({ title, icon: Icon, items }: { title: string; icon: LucideIcon; items: string[] }) {
   return (
     <div>
       <h2 className="mb-3 text-base font-bold text-gray-900">{title}</h2>
       <ul className="space-y-2">
         {items.map((i) => (
           <li key={i} className="flex gap-2.5 text-sm text-gray-700">
-            <i className={cn("fa-solid mt-1 text-xs text-brand-600", icon)} />
+            <Icon className="mt-1 size-3 shrink-0 text-brand-600" />
             {i}
           </li>
         ))}
@@ -339,20 +372,23 @@ function CurriculumCard({ curriculum }: { curriculum: Curriculum }) {
               <span>{s.title}</span>
               <span className="flex shrink-0 items-center gap-3 text-xs font-medium text-gray-500">
                 {s.lessons.length} lessons
-                <i className="fa-solid fa-chevron-down transition group-open:rotate-180" />
+                <ChevronDown className="size-3 shrink-0 transition group-open:rotate-180" />
               </span>
             </summary>
             <ul className="divide-y divide-gray-100">
-              {s.lessons.map((l) => (
-                <li key={l.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
-                  <span className="flex min-w-0 items-center gap-2.5 text-gray-700">
-                    <i className={cn("fa-solid text-xs text-gray-400", LESSON_ICON[l.type] ?? "fa-circle")} />
-                    <span className="truncate">{l.title}</span>
-                    {l.is_free_preview && <span className="shrink-0 rounded-sm bg-emerald-50 px-1.5 text-[10px] font-bold text-emerald-700">PREVIEW</span>}
-                  </span>
-                  {l.duration_sec ? <span className="shrink-0 text-xs text-gray-400">{Math.round(l.duration_sec / 60)} min</span> : null}
-                </li>
-              ))}
+              {s.lessons.map((l) => {
+                const LessonIcon = LESSON_ICON[l.type] ?? Circle;
+                return (
+                  <li key={l.id} className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm">
+                    <span className="flex min-w-0 items-center gap-2.5 text-gray-700">
+                      <LessonIcon className="size-3 shrink-0 text-gray-400" />
+                      <span className="truncate">{l.title}</span>
+                      {l.is_free_preview && <span className="shrink-0 rounded-sm bg-emerald-50 px-1.5 text-[10px] font-bold text-emerald-700">PREVIEW</span>}
+                    </span>
+                    {l.duration_sec ? <span className="shrink-0 text-xs text-gray-400">{Math.round(l.duration_sec / 60)} min</span> : null}
+                  </li>
+                );
+              })}
             </ul>
           </details>
         ))}

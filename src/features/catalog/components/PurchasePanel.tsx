@@ -1,5 +1,6 @@
 "use client";
 
+import { Award, CircleCheck, CirclePlay, Clock, ShoppingCart, ShoppingCartPlus, Users, Video, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -20,11 +21,11 @@ function validityLabel(plan: Plan) {
   return "Access till the event ends";
 }
 
-const INCLUDES: { key: keyof Plan["includes"]; label: string; icon: string }[] = [
-  { key: "live", label: "Live classes", icon: "fa-video" },
-  { key: "recordings", label: "Recordings", icon: "fa-circle-play" },
-  { key: "certificate", label: "Certificate", icon: "fa-award" },
-  { key: "community", label: "Community access", icon: "fa-users" },
+const INCLUDES: { key: keyof Plan["includes"]; label: string; icon: LucideIcon }[] = [
+  { key: "live", label: "Live classes", icon: Video },
+  { key: "recordings", label: "Recordings", icon: CirclePlay },
+  { key: "certificate", label: "Certificate", icon: Award },
+  { key: "community", label: "Community access", icon: Users },
 ];
 
 type Props = { page: ProductPage; owned?: LibraryCard; ownedHref?: string };
@@ -67,7 +68,7 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
         {owned ? (
           <div className="space-y-3 text-center">
             <p className="text-sm font-semibold text-emerald-700">
-              <i className="fa-solid fa-circle-check mr-1.5" />
+              <CircleCheck className="mr-1.5 inline-block size-3.5 align-[-0.125em]" />
               You own this {product.type === "EBOOK" ? "e-book" : product.type.toLowerCase()}
             </p>
             <Link href={ownedHref ?? ROUTES.courses} className="block w-full rounded-xl bg-brand-600 py-3 text-sm font-bold text-white hover:bg-brand-700">
@@ -150,7 +151,7 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
             {freeDone ? (
               <div className="space-y-3 rounded-xl bg-emerald-50 p-4 text-center">
                 <p className="text-sm font-semibold text-emerald-800">
-                  <i className="fa-solid fa-circle-check mr-1.5" />
+                  <CircleCheck className="mr-1.5 inline-block size-3.5 align-[-0.125em]" />
                   {live ? "You're registered!" : "You're enrolled!"}
                 </p>
                 <Link href={live ? ROUTES.liveSessions : ROUTES.courses} className="block rounded-lg bg-emerald-600 py-2.5 text-sm font-bold text-white hover:bg-emerald-700">
@@ -193,7 +194,11 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
                     disabled={add.isPending}
                     className="w-full rounded-xl border border-brand-600 py-3 text-sm font-bold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
                   >
-                    <i className={cn("fa-solid mr-2", inCart ? "fa-cart-shopping" : "fa-cart-plus")} />
+                    {inCart ? (
+                      <ShoppingCart className="mr-2 inline-block size-3.5 align-[-0.125em]" />
+                    ) : (
+                      <ShoppingCartPlus className="mr-2 inline-block size-3.5 align-[-0.125em]" />
+                    )}
                     {inCart ? "In cart — view cart" : add.isPending ? "Adding…" : "Add to cart"}
                   </button>
                 )}
@@ -206,12 +211,12 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
         {plan && (
           <ul className="grid grid-cols-2 gap-2 border-t border-gray-100 pt-4 text-xs text-gray-600">
             <li className="col-span-2 font-semibold text-gray-800">
-              <i className="fa-regular fa-clock mr-1.5 text-brand-600" />
+              <Clock className="mr-1.5 inline-block size-3 align-[-0.125em] text-brand-600" />
               {validityLabel(plan)}
             </li>
             {INCLUDES.filter((i) => plan.includes[i.key]).map((i) => (
               <li key={i.key}>
-                <i className={cn("fa-solid mr-1.5 text-brand-600", i.icon)} />
+                <i.icon className="mr-1.5 inline-block size-3 align-[-0.125em] text-brand-600" />
                 {i.label}
               </li>
             ))}

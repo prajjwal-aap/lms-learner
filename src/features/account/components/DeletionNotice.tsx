@@ -1,5 +1,6 @@
 "use client";
 
+import { TriangleAlert } from "lucide-react";
 import { deletionNotice, useDeletionNotice } from "@/features/auth";
 import { useCancelAccountDeletion } from "../api/account.queries";
 
@@ -17,7 +18,7 @@ export function DeletionNotice() {
     <div role="alert" className="border-b border-red-200 bg-red-50 px-4 py-3 sm:px-6">
       <div className="mx-auto flex max-w-7xl flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <p className="text-sm text-red-800">
-          <i className="fa-solid fa-triangle-exclamation mr-2" />
+          <TriangleAlert className="mr-2 inline-block size-3.5 align-[-0.125em]" />
           Your account is scheduled for deletion on <strong>{when}</strong> ({days} {days === 1 ? "day" : "days"} left).
           {cancel.error && <span className="ml-1 font-medium">{cancel.error.message}</span>}
         </p>

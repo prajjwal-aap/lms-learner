@@ -1,5 +1,6 @@
 "use client";
 
+import { Check, ListFilter } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { usePosts } from "../api/community.queries";
@@ -57,7 +58,7 @@ export function FeedSection({ channelId, title }: FeedSectionProps) {
             onClick={() => setMenuOpen((o) => !o)}
             className="flex h-7 w-7 items-center justify-center rounded-sm bg-gray-100 text-gray-600 transition hover:bg-gray-200"
           >
-            <i className="fa-solid fa-bars-staggered text-xs" />
+            <ListFilter className="size-3" />
           </button>
           {menuOpen && (
             <div role="menu" className="absolute right-0 z-20 mt-1 w-40 rounded-lg border border-gray-200 bg-white py-1 shadow-level-2">
@@ -77,7 +78,7 @@ export function FeedSection({ channelId, title }: FeedSectionProps) {
                   )}
                 >
                   {s.label}
-                  {sort === s.id && <i className="fa-solid fa-check text-[10px]" />}
+                  {sort === s.id && <Check className="size-2.5 shrink-0" />}
                 </button>
               ))}
             </div>

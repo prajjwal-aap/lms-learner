@@ -1,5 +1,6 @@
 "use client";
 
+import { Camera, LoaderCircle, User } from "lucide-react";
 import { useRef } from "react";
 import { cn } from "@/lib/utils";
 import { useUploadProfilePhoto } from "../api/account.queries";
@@ -26,11 +27,11 @@ export function ProfileAvatar({ name, avatarUrl, size = "h-24 w-24 text-3xl", ed
             // eslint-disable-next-line @next/next/no-img-element -- avatar host is user-uploaded S3, not in next/image config
             <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
           ) : (
-            name.trim().charAt(0).toUpperCase() || <i className="fa-solid fa-user" />
+            name.trim().charAt(0).toUpperCase() || <User className="size-[1em]" />
           )}
           {upload.isPending && (
             <span className="absolute inset-0 flex items-center justify-center rounded-full bg-black/40 text-white">
-              <i className="fa-solid fa-spinner animate-spin text-base" />
+              <LoaderCircle className="size-4 animate-spin" />
             </span>
           )}
         </div>
@@ -43,7 +44,7 @@ export function ProfileAvatar({ name, avatarUrl, size = "h-24 w-24 text-3xl", ed
               aria-label="Change profile photo"
               className="absolute bottom-0 right-0 flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-brand-600 text-xs text-white shadow transition hover:bg-brand-700 disabled:opacity-60"
             >
-              <i className="fa-solid fa-camera" />
+              <Camera className="size-3" />
             </button>
             <input
               ref={input}

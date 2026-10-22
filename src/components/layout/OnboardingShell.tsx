@@ -1,3 +1,4 @@
+import { ArrowRight, Lock, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ROUTES } from "@/config/routes";
@@ -19,9 +20,9 @@ export function OnboardingShell({ children, skipSlot }: { children: ReactNode; s
             {skipSlot ?? (
               <Link
                 className="flex items-center gap-1 rounded-lg px-space-sm py-space-xs font-label-md text-label-md text-secondary transition-colors hover:bg-surface-container-high hover:text-primary"
-                href={ROUTES.community}
+                href={ROUTES.home}
               >
-                Skip<span className="material-symbols-outlined text-[16px]">arrow_forward</span>
+                Skip<ArrowRight className="size-4 shrink-0" />
               </Link>
             )}
           </div>
@@ -37,10 +38,10 @@ export function OnboardingShell({ children, skipSlot }: { children: ReactNode; s
           <p className="font-body-sm text-body-sm text-secondary">Guided by Ancient Rishi Parampara · Astrological &amp; Esoteric Sciences</p>
           <div className="flex items-center gap-space-md font-label-sm text-label-sm text-secondary">
             <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-tertiary">verified_user</span> Sacred Trust
+              <ShieldCheck className="size-3.5 shrink-0 text-tertiary" /> Sacred Trust
             </span>
             <span className="flex items-center gap-1">
-              <span className="material-symbols-outlined text-[14px] text-tertiary">lock</span> Vedic Lineage Encrypted
+              <Lock className="size-3.5 shrink-0 text-tertiary" /> Vedic Lineage Encrypted
             </span>
           </div>
         </div>

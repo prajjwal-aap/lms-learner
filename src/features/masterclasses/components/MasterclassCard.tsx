@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleCheck, User } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/config/routes";
 import { ProductThumb } from "@/components/ui/ProductThumb";
@@ -27,9 +28,7 @@ export function MasterclassCard({ product: p, registered }: Props) {
         <div>
           <div className="flex items-center justify-between text-[11px] text-slate-500 mb-1.5">
             <span className="flex items-center gap-1 font-medium text-slate-700">
-              <svg className="w-3.5 h-3.5 text-brand-600" fill="currentColor" viewBox="0 0 20 20">
-                <path clipRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" fillRule="evenodd" />
-              </svg>
+              <User className="w-3.5 h-3.5 shrink-0 text-brand-600" fill="currentColor" />
               By {p.mentors.map((m) => m.display_name).join(", ")}
             </span>
             {p.badges[0] && <span className="font-bold text-amber-600 uppercase">{p.badges[0]}</span>}
@@ -55,7 +54,7 @@ export function MasterclassCard({ product: p, registered }: Props) {
               href={ROUTES.liveSessions}
               className="text-xs font-semibold px-3.5 py-1.5 rounded-lg flex items-center gap-1 bg-emerald-50 text-emerald-700 border border-emerald-200"
             >
-              <i className="fa-solid fa-circle-check text-[11px]" />
+              <CircleCheck className="size-[11px] shrink-0" />
               Registered
             </Link>
           ) : (

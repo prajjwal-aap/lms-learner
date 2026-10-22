@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleUser, LogOut, User } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -27,9 +28,7 @@ export function ProfileMenu() {
         ) : initial ? (
           <span className="text-sm font-semibold text-gray-600">{initial}</span>
         ) : (
-          <svg className="mt-1 h-6 w-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
-            <path clipRule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" fillRule="evenodd" />
-          </svg>
+          <User className="mt-1 size-6 text-gray-400" fill="currentColor" />
         )}
       </button>
       {open && (
@@ -44,11 +43,11 @@ export function ProfileMenu() {
               onClick={() => setOpen(false)}
               className="mt-1 flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-gray-700 hover:bg-brand-50"
             >
-              <i className="fa-regular fa-circle-user w-4 text-center" />
+              <CircleUser className="size-4 shrink-0" />
               My account
             </Link>
             <button role="menuitem" onClick={logout} className="flex w-full items-center gap-2 rounded-lg px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50">
-              <i className="fa-solid fa-arrow-right-from-bracket w-4 text-center" />
+              <LogOut className="size-4 shrink-0" />
               Logout
             </button>
           </div>

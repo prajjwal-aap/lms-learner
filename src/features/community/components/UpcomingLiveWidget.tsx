@@ -1,5 +1,6 @@
 "use client";
 
+import { Clock } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/config/routes";
 import { sessionBadge, sessionWhen, useUpcomingSessions } from "@/features/live-sessions";
@@ -22,7 +23,7 @@ export function UpcomingLiveWidget() {
       ) : !sessions?.length ? (
         <div className="flex flex-col items-center justify-center py-6 text-center">
           <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-400">
-            <i className="fa-regular fa-clock text-lg" />
+            <Clock className="size-[18px]" />
           </div>
           <p className="max-w-sm text-xs leading-relaxed text-gray-500">
             Your scheduled sessions will appear here. Add them to your calendar and join when the button appears.

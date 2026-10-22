@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleCheck, Info, Smartphone } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { useProfile, useUpdateProfile } from "../api/account.queries";
 import { formatPhone } from "../lib/format";
@@ -43,7 +44,7 @@ function ContactDetails({ profile }: { profile: Profile }) {
         <h2 className="text-base font-semibold text-gray-900">Registered phone number</h2>
         <div className="mt-3 flex items-center gap-3">
           <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600">
-            <i className="fa-solid fa-mobile-screen" />
+            <Smartphone className="size-4" />
           </span>
           <div>
             <p className="text-base font-semibold tracking-wide text-gray-900">{formatPhone(profile.phoneNumber, profile.countryCode) || "Not available"}</p>
@@ -51,7 +52,7 @@ function ContactDetails({ profile }: { profile: Profile }) {
           </div>
         </div>
         <p className="mt-4 rounded-lg bg-gray-50 px-3.5 py-2.5 text-xs leading-relaxed text-gray-600">
-          <i className="fa-solid fa-circle-info mr-1.5 text-gray-400" />
+          <Info className="mr-1.5 inline-block size-3 align-[-0.125em] text-gray-400" />
           Your login number can&apos;t be changed in the app. Use <strong>Talk to us</strong> if you need it moved to a new number.
         </p>
       </section>
@@ -79,7 +80,7 @@ function ContactDetails({ profile }: { profile: Profile }) {
               <span className="text-red-600">{save.error.message}</span>
             ) : justSaved ? (
               <span className="text-emerald-600">
-                <i className="fa-solid fa-circle-check mr-1.5" />
+                <CircleCheck className="mr-1.5 inline-block size-3.5 align-[-0.125em]" />
                 Email updated
               </span>
             ) : null}

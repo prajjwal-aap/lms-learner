@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleCheck } from "lucide-react";
 import { useState, type FormEvent } from "react";
 import { useProfile, useUpdateProfile } from "../api/account.queries";
 import type { Profile } from "../types";
@@ -92,7 +93,7 @@ function PersonalInfoForm({ profile }: { profile: Profile }) {
             <span className="text-red-600">{save.error.message}</span>
           ) : justSaved ? (
             <span className="text-emerald-600">
-              <i className="fa-solid fa-circle-check mr-1.5" />
+              <CircleCheck className="mr-1.5 inline-block size-3.5 align-[-0.125em]" />
               Changes saved
             </span>
           ) : null}

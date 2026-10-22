@@ -1,5 +1,6 @@
 "use client";
 
+import { LoaderCircle, ZoomIn, ZoomOut } from "lucide-react";
 import type { PDFDocumentProxy, RenderTask } from "pdfjs-dist";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
@@ -125,7 +126,7 @@ export function PdfViewer({ url, watermark, initialPage = 1, onPageChange, actio
             aria-label="Zoom out"
             className="flex h-8 w-8 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 disabled:opacity-40"
           >
-            <i className="fa-solid fa-magnifying-glass-minus" />
+            <ZoomOut className="size-3.5" />
           </button>
           <span className="w-12 text-center text-xs tabular-nums text-gray-500">{Math.round(zoom * 100)}%</span>
           <button
@@ -135,7 +136,7 @@ export function PdfViewer({ url, watermark, initialPage = 1, onPageChange, actio
             aria-label="Zoom in"
             className="flex h-8 w-8 items-center justify-center rounded-md text-gray-600 hover:bg-gray-100 disabled:opacity-40"
           >
-            <i className="fa-solid fa-magnifying-glass-plus" />
+            <ZoomIn className="size-3.5" />
           </button>
           {actions}
         </div>
@@ -146,7 +147,7 @@ export function PdfViewer({ url, watermark, initialPage = 1, onPageChange, actio
           <p className="mx-auto mt-10 max-w-md text-center text-sm text-red-600">{error}</p>
         ) : !doc || !pageWidth ? (
           <div className="mx-auto mt-10 flex flex-col items-center gap-3 text-sm text-gray-500">
-            <i className="fa-solid fa-spinner animate-spin text-2xl text-brand-600" />
+            <LoaderCircle className="size-6 animate-spin text-brand-600" />
             Opening document…
           </div>
         ) : (

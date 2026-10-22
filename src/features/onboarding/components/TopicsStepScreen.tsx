@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight, BrainCircuit, Check, CircleAlert, CircleCheck, RotateCcwKey, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { ONBOARDING_IMAGE } from "../api/onboarding.mock";
 import { useSaveOnboarding, useTopics } from "../api/onboarding.queries";
@@ -7,8 +8,6 @@ import { useHydrateOnboarding } from "../hooks/useHydrateOnboarding";
 import { useOnboardingStore } from "../store";
 import type { Topic } from "../types";
 import { StepNav } from "./StepNav";
-
-const FILL = { fontVariationSettings: "'FILL' 1" };
 
 /** Step 3 (final) — multi-select topic chips, then save and enter the portal. */
 export function TopicsStepScreen() {
@@ -30,9 +29,7 @@ export function TopicsStepScreen() {
 
         <div className="relative z-10 flex flex-col items-center text-center">
           <div className="mb-space-sm inline-flex items-center gap-1.5 rounded-full bg-surface-container px-3 py-1 font-label-sm text-label-sm uppercase tracking-wider text-primary">
-            <span className="material-symbols-outlined text-[15px]" style={FILL}>
-              stars
-            </span>
+            <Sparkles className="size-[15px] shrink-0" fill="currentColor" />
             Personalized Dharmic Pathway
           </div>
           <h1 className="max-w-2xl font-headline-xl-mobile text-headline-xl-mobile tracking-tight text-on-surface sm:font-headline-xl sm:text-headline-xl">
@@ -48,7 +45,7 @@ export function TopicsStepScreen() {
               <span className="font-label-md text-label-md text-on-surface">Recommended Core Sciences</span>
             </div>
             <div className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-surface-container-high px-3 py-1 font-label-md text-label-md text-primary">
-              <span className="material-symbols-outlined text-[16px]">check_circle</span>
+              <CircleCheck className="size-4 shrink-0" />
               <span aria-live="polite">
                 {count} {count === 1 ? "topic" : "topics"} selected
               </span>
@@ -65,7 +62,7 @@ export function TopicsStepScreen() {
           <div className="mt-space-xl flex w-full flex-col items-center">
             {save.error && (
               <p className="mb-space-sm flex items-center gap-1.5 font-body-sm text-body-sm text-error" role="alert">
-                <span className="material-symbols-outlined text-[16px]">error</span>
+                <CircleAlert className="size-4 shrink-0" />
                 {save.error.message}
               </p>
             )}
@@ -76,10 +73,10 @@ export function TopicsStepScreen() {
               onClick={finish}
             >
               <span>{save.isPending ? "Preparing your Gurukul…" : "Complete Setup & Enter Gurukul"}</span>
-              <span className="material-symbols-outlined text-[22px]">arrow_forward</span>
+              <ArrowRight className="size-[22px] shrink-0" />
             </button>
             <div className="mt-space-sm flex items-center gap-2 text-secondary">
-              <span className="material-symbols-outlined text-[16px] text-tertiary">lock_reset</span>
+              <RotateCcwKey className="size-4 shrink-0 text-tertiary" />
               <p className="font-body-sm text-body-sm">You can update these anytime in your learner profile settings.</p>
             </div>
           </div>
@@ -89,7 +86,7 @@ export function TopicsStepScreen() {
       <div className="mt-space-lg flex w-full flex-col items-center justify-between gap-space-md rounded-xl bg-surface-container p-space-md sm:flex-row">
         <div className="flex items-center gap-space-sm">
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-container-highest text-primary">
-            <span className="material-symbols-outlined text-[22px]">psychology_alt</span>
+            <BrainCircuit className="size-[22px]" />
           </div>
           <div>
             <h4 className="font-headline-md text-[14px] leading-tight text-on-surface">Customized Vedic Learning Track</h4>
@@ -109,6 +106,7 @@ export function TopicsStepScreen() {
 }
 
 function TopicChip({ topic, selected, onToggle }: { topic: Topic; selected: boolean; onToggle: () => void }) {
+  const Icon = topic.icon;
   return (
     <button
       aria-pressed={selected}
@@ -128,7 +126,7 @@ function TopicChip({ topic, selected, onToggle }: { topic: Topic; selected: bool
             selected ? "bg-white/15 text-on-primary" : "bg-surface-container-highest text-secondary group-hover:text-primary",
           )}
         >
-          <span className="material-symbols-outlined text-[20px]">{topic.icon}</span>
+          <Icon className="size-5" />
         </span>
         <span
           className={cn(
@@ -136,7 +134,7 @@ function TopicChip({ topic, selected, onToggle }: { topic: Topic; selected: bool
             selected ? "flex" : "hidden",
           )}
         >
-          <span className="material-symbols-outlined text-[14px] font-bold">check</span>
+          <Check className="size-3.5" strokeWidth={3} />
         </span>
       </div>
       <span className="font-headline-md text-[14px] font-semibold leading-tight">{topic.label}</span>

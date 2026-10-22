@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight, BadgeCheck, BookOpen, BookOpenText, Check, Lightbulb, Sparkles } from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { KeyboardEvent } from "react";
 import { ROUTES } from "@/config/routes";
@@ -10,8 +11,6 @@ import { useHydrateOnboarding } from "../hooks/useHydrateOnboarding";
 import { useOnboardingStore } from "../store";
 import type { GoalOption } from "../types";
 import { StepNav } from "./StepNav";
-
-const FILL = { fontVariationSettings: "'FILL' 1" };
 
 /** Step 2 — single-choice "Why do you want to learn astrology?". */
 export function GoalStepScreen() {
@@ -32,9 +31,7 @@ export function GoalStepScreen() {
 
         <div className="mx-auto mb-space-xl flex max-w-xl flex-col items-center text-center">
           <div className="mb-space-sm inline-flex items-center gap-1.5 rounded-full bg-surface-container-high px-3 py-1 font-label-sm text-label-sm text-primary shadow-xs">
-            <span className="material-symbols-outlined text-[15px]" style={FILL}>
-              stars
-            </span>
+            <Sparkles className="size-[15px] shrink-0" fill="currentColor" />
             <span>Sankalpa &bull; Your Spiritual Intent</span>
           </div>
           <h1 className="mb-space-xs font-headline-xl-mobile text-headline-xl-mobile tracking-tight text-on-surface sm:font-headline-xl sm:text-headline-xl">
@@ -49,7 +46,7 @@ export function GoalStepScreen() {
         <div className="mb-space-lg w-full max-w-2xl overflow-hidden rounded-xl bg-surface-container-low p-1.5 shadow-xs">
           <div className="flex items-center justify-between px-3 py-1.5">
             <div className="flex items-center gap-2">
-              <span className="material-symbols-outlined text-[16px] text-primary">menu_book</span>
+              <BookOpenText className="size-4 shrink-0 text-primary" />
               <span className="font-label-sm text-label-sm text-on-surface-variant">Gurukul Syllabus Alignment</span>
             </div>
             <span className="font-label-sm text-label-sm text-secondary">Step 2 Overview</span>
@@ -64,7 +61,7 @@ export function GoalStepScreen() {
             <div className="absolute inset-0 bg-gradient-to-r from-surface-container-lowest/80 via-transparent to-surface-container-lowest/80" />
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
               <span className="flex items-center gap-1.5 rounded-full bg-surface/90 px-3 py-1 font-label-sm text-label-sm text-primary shadow-xs backdrop-blur-md">
-                <span className="material-symbols-outlined text-[14px]">auto_stories</span>
+                <BookOpen className="size-3.5 shrink-0" />
                 Personalized Vedic Learning Tracks
               </span>
             </div>
@@ -81,7 +78,7 @@ export function GoalStepScreen() {
 
         <div className="mt-space-md flex w-full max-w-2xl items-center gap-space-md rounded-xl bg-surface-container/60 p-space-md text-secondary">
           <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-surface-container-highest text-primary">
-            <span className="material-symbols-outlined text-[20px]">lightbulb</span>
+            <Lightbulb className="size-5" />
           </div>
           <p className="font-body-sm text-body-sm">
             <span className="font-semibold text-on-surface">Did you know?</span> 82% of Gurukul initiates choose path exploration before selecting
@@ -91,7 +88,7 @@ export function GoalStepScreen() {
 
         <div className="mt-space-xl flex w-full max-w-2xl flex-col items-center justify-between gap-space-md pt-space-md sm:flex-row">
           <div className="flex items-center gap-2 text-secondary">
-            <span className="material-symbols-outlined text-[18px] text-primary">verified</span>
+            <BadgeCheck className="size-[18px] shrink-0 text-primary" />
             <span className="font-body-sm text-body-sm">No prior Sanskrit or Jyotish knowledge required</span>
           </div>
           <button
@@ -101,7 +98,7 @@ export function GoalStepScreen() {
             onClick={() => router.push(ROUTES.onboarding.topics)}
           >
             <span>Continue</span>
-            <span className="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+            <ArrowRight className="size-5 shrink-0 transition-transform group-hover:translate-x-1" />
           </button>
         </div>
       </div>
@@ -110,6 +107,7 @@ export function GoalStepScreen() {
 }
 
 function GoalCard({ goal, selected, onSelect }: { goal: GoalOption; selected: boolean; onSelect: () => void }) {
+  const Icon = goal.icon;
   const onKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
@@ -136,7 +134,7 @@ function GoalCard({ goal, selected, onSelect }: { goal: GoalOption; selected: bo
             selected ? "bg-primary-container text-on-primary shadow-xs" : "bg-surface-container-high text-primary",
           )}
         >
-          <span className="material-symbols-outlined text-[26px]">{goal.icon}</span>
+          <Icon className="size-[26px]" />
         </div>
         <div className="min-w-0 flex-1 pr-6">
           <div className="mb-1 flex items-center gap-2">
@@ -158,7 +156,7 @@ function GoalCard({ goal, selected, onSelect }: { goal: GoalOption; selected: bo
             selected ? "bg-primary-container text-on-primary shadow-xs" : "bg-surface-container text-transparent",
           )}
         >
-          <span className="material-symbols-outlined text-[16px] font-bold">check</span>
+          <Check className="size-4" strokeWidth={3} />
         </div>
       </div>
     </div>

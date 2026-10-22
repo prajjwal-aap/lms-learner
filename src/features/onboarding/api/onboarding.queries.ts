@@ -25,7 +25,7 @@ export function useSaveOnboarding() {
       session.markOnboarded();
       void queryClient.invalidateQueries({ queryKey: authKeys.me });
       useOnboardingStore.persist.clearStorage();
-      router.replace(ROUTES.community);
+      router.replace(ROUTES.home);
     },
   });
 }

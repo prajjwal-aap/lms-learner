@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft, Hourglass, Lock } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/config/routes";
 import { ProductThumb } from "@/components/ui/ProductThumb";
@@ -27,7 +28,7 @@ export function CourseHomeScreen({ courseId }: { courseId: string }) {
     return (
       <main className="mx-auto w-full max-w-xl flex-1 px-4 py-16 text-center">
         <span className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-xl text-brand-600">
-          <i className={msg.code === "ACCESS_EXPIRED" ? "fa-solid fa-hourglass-end" : "fa-solid fa-lock"} />
+          {msg.code === "ACCESS_EXPIRED" ? <Hourglass className="size-5" /> : <Lock className="size-5" />}
         </span>
         <h1 className="text-xl font-bold text-gray-900">{msg.code === "NOT_FOUND" ? "Course not in the player yet" : msg.title}</h1>
         <p className="mt-2 text-sm text-gray-600">
@@ -68,7 +69,7 @@ export function CourseHomeScreen({ courseId }: { courseId: string }) {
           </div>
           <div className="md:col-span-7">
             <Link href={ROUTES.courses} className="mb-3 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700">
-              <i className="fa-solid fa-arrow-left text-xs" />
+              <ArrowLeft className="size-3 shrink-0" />
               Back to My Learnings
             </Link>
             <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{course.title}</h1>

@@ -1,5 +1,6 @@
 "use client";
 
+import { CalendarClock } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -17,11 +18,7 @@ function EmptyState({ tab }: { tab: SessionTab }) {
   return (
     <div className="flex flex-col items-center justify-center px-4 py-20 text-center">
       <div className="mb-4 text-slate-700 opacity-90">
-        <svg className="mx-auto h-14 w-14 stroke-current" fill="none" strokeWidth={1.8} viewBox="0 0 24 24">
-          <path d="M8 7V3m8 4V3m-9 8h10M5 21h7a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" strokeLinecap="round" strokeLinejoin="round" />
-          <circle className="fill-white stroke-current" cx="17.5" cy="17.5" r="4.5" strokeWidth={1.8} />
-          <path d="M17.5 15.5v2l1.2 1.2" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
+        <CalendarClock className="mx-auto size-14" strokeWidth={1.8} />
       </div>
       <p className="text-sm font-medium text-slate-800">{tab === "upcoming" ? "You aren't registered for any upcoming live sessions." : "No past live sessions yet."}</p>
       {tab === "upcoming" && (

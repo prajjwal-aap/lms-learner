@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft, Check, ChevronDown, ChevronLeft, ChevronRight, CircleCheck, FileDown, List, X } from "lucide-react";
 import Link from "next/link";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useRef, useState, type ReactNode } from "react";
@@ -88,7 +89,7 @@ export function LessonPlayerScreen({ courseId, lessonId, profileSlot }: Props) {
             aria-label="Back to course"
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
           >
-            <i className="fa-solid fa-arrow-left" />
+            <ArrowLeft className="size-4" />
           </Link>
           <h1 className="truncate text-sm font-semibold text-gray-900 sm:text-base">{course.course.title}</h1>
         </div>
@@ -107,7 +108,7 @@ export function LessonPlayerScreen({ courseId, lessonId, profileSlot }: Props) {
             aria-pressed={sidebarOpen}
             className="hidden items-center gap-2 rounded-full border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 transition hover:bg-gray-50 lg:inline-flex"
           >
-            <i className="fa-solid fa-list-ul" />
+            <List className="size-3 shrink-0" />
             {sidebarOpen ? "Hide content" : "Course content"}
           </button>
           {profileSlot}
@@ -134,7 +135,7 @@ export function LessonPlayerScreen({ courseId, lessonId, profileSlot }: Props) {
             </div>
             <div className="flex shrink-0 flex-wrap items-center gap-2">
               <LessonLink courseId={courseId} lesson={prev} label="Previous lesson" className={navButton}>
-                <i className="fa-solid fa-chevron-left text-xs" />
+                <ChevronLeft className="size-3 shrink-0" />
               </LessonLink>
               {manual && (
                 <button
@@ -144,19 +145,19 @@ export function LessonPlayerScreen({ courseId, lessonId, profileSlot }: Props) {
                   aria-pressed={completed}
                   className={cn(navButton, completed && "border-emerald-200 bg-emerald-50 text-emerald-700 hover:bg-emerald-50")}
                 >
-                  <i className={cn("fa-solid text-xs", completed ? "fa-circle-check" : "fa-check")} />
+                  {completed ? <CircleCheck className="size-3 shrink-0" /> : <Check className="size-3 shrink-0" />}
                   {completed ? "Completed" : complete.isPending ? "Saving…" : "Mark as complete"}
                 </button>
               )}
               {!manual && completed && (
                 <span className="inline-flex items-center gap-1.5 rounded-lg bg-emerald-50 px-3 py-2 text-sm font-semibold text-emerald-700">
-                  <i className="fa-solid fa-circle-check text-xs" />
+                  <CircleCheck className="size-3 shrink-0" />
                   Completed
                 </span>
               )}
               <LessonLink courseId={courseId} lesson={next} label="Next lesson" className={cn(navButton, "border-brand-600 bg-brand-600 text-white hover:bg-brand-700")}>
                 Next
-                <i className="fa-solid fa-chevron-right text-xs" />
+                <ChevronRight className="size-3 shrink-0" />
               </LessonLink>
             </div>
           </div>
@@ -170,7 +171,7 @@ export function LessonPlayerScreen({ courseId, lessonId, profileSlot }: Props) {
                   {progress.completed_lessons} of {progress.total_lessons} complete
                 </span>
               </span>
-              <i className="fa-solid fa-chevron-down text-xs text-gray-500 transition-transform group-open:rotate-180" />
+              <ChevronDown className="size-3 shrink-0 text-gray-500 transition-transform group-open:rotate-180" />
             </summary>
             {contentList("max-h-[60vh] border-t border-gray-200")}
           </details>
@@ -188,7 +189,7 @@ export function LessonPlayerScreen({ courseId, lessonId, profileSlot }: Props) {
                 aria-label="Hide course content"
                 className="flex h-8 w-8 items-center justify-center rounded-full text-gray-400 transition hover:bg-gray-100 hover:text-gray-700"
               >
-                <i className="fa-solid fa-xmark" />
+                <X className="size-4" />
               </button>
             </div>
             {contentList("min-h-0 flex-1")}
@@ -276,7 +277,7 @@ function LessonTabs({ courseId, detail, sectionTitle }: { courseId: string; deta
                   className="flex w-full items-center gap-3 rounded-xl border border-gray-200 bg-white px-4 py-3 text-left transition hover:border-brand-200 hover:bg-brand-50/50 disabled:opacity-60"
                 >
                   <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-red-50 text-red-500">
-                    <i className="fa-solid fa-file-arrow-down" />
+                    <FileDown className="size-4" />
                   </span>
                   <span className="min-w-0 flex-1 truncate text-sm font-medium text-gray-900">{r.title}</span>
                   <span className="text-xs font-semibold text-brand-600">{open.isPending && open.variables?.id === r.id ? "Opening…" : "Open"}</span>

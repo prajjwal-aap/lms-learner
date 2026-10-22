@@ -1,9 +1,11 @@
+import type { LucideIcon } from "lucide-react";
+
 /** Top-level sidebar entries (Feed, Messages). */
 export interface CommunityNavItem {
   id: string;
   label: string;
-  /** FontAwesome class, e.g. "fa-regular fa-compass". */
-  icon: string;
+  /** Lucide icon component, e.g. Compass. */
+  icon: LucideIcon;
   badge?: number;
 }
 
@@ -11,8 +13,8 @@ export interface CommunityNavItem {
 export interface CommunityChannel {
   id: string;
   name: string;
-  /** FontAwesome class + colour for the leading icon. */
-  icon: string;
+  /** Lucide icon component + colour for the leading icon. */
+  icon: LucideIcon;
   iconClassName: string;
   badge?: number;
 }

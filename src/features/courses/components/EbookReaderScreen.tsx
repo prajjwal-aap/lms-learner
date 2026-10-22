@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowLeft, BookOpen, Download, LoaderCircle } from "lucide-react";
 import Link from "next/link";
 import { useMutation } from "@tanstack/react-query";
 import { useEffect, useRef, type ReactNode } from "react";
@@ -59,9 +60,9 @@ export function EbookReaderScreen({ publicationId, profileSlot }: { publicationI
             aria-label="Back to My Learnings"
             className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-gray-100 hover:text-gray-900"
           >
-            <i className="fa-solid fa-arrow-left" />
+            <ArrowLeft className="size-4" />
           </Link>
-          <i className="fa-solid fa-book-open text-brand-600" />
+          <BookOpen className="size-4 shrink-0 text-brand-600" />
           <h1 className="truncate text-sm font-semibold text-gray-900 sm:text-base">{title}</h1>
         </div>
         {profileSlot}
@@ -69,7 +70,7 @@ export function EbookReaderScreen({ publicationId, profileSlot }: { publicationI
 
       {isLoading ? (
         <div className="flex flex-1 items-center justify-center text-sm text-gray-500">
-          <i className="fa-solid fa-spinner mr-2 animate-spin text-brand-600" />
+          <LoaderCircle className="mr-2 size-3.5 animate-spin text-brand-600" />
           Opening e-book…
         </div>
       ) : error || !ebook ? (
@@ -96,7 +97,7 @@ export function EbookReaderScreen({ publicationId, profileSlot }: { publicationI
                 title={download.error ? lmsErrorMessage(download.error).text : undefined}
                 className="ml-2 inline-flex items-center gap-1.5 rounded-lg border border-gray-200 px-3 py-1.5 text-xs font-semibold text-gray-700 hover:bg-gray-50 disabled:opacity-50"
               >
-                <i className="fa-solid fa-download" />
+                <Download className="size-3 shrink-0" />
                 <span className="hidden sm:inline">{download.isPending ? "Preparing…" : "Download"}</span>
               </button>
             )

@@ -16,7 +16,7 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(url);
   }
   if (hasSession && pathname.startsWith(ROUTES.login)) {
-    return NextResponse.redirect(new URL(ROUTES.community, request.url));
+    return NextResponse.redirect(new URL(ROUTES.home, request.url));
   }
   return NextResponse.next();
 }

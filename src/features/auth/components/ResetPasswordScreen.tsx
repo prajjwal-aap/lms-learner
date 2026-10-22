@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight, CircleAlert, Lock, MessageCircle, MessagesSquare, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { OgLogo } from "@/components/layout";
@@ -13,7 +14,6 @@ import { emptyOtp, OtpInput } from "./OtpInput";
 
 const OTP_BOX =
   "w-full aspect-square text-center font-headline-md text-headline-md bg-surface-container-low text-on-surface rounded-lg outline-hidden transition-all focus:bg-surface-container-lowest focus:shadow-md focus:text-primary-container border-0 p-0 focus:ring-0";
-const FILL = { fontVariationSettings: "'FILL' 1" };
 
 /** Recovery / verification: mobile → OTP → sign in (the API has no passwords or email OTP). Uses useSearchParams (wrap in <Suspense>). */
 export function ResetPasswordScreen() {
@@ -79,7 +79,7 @@ export function ResetPasswordScreen() {
                     Mobile Number
                   </label>
                   <div className="relative flex items-center">
-                    <span className="material-symbols-outlined pointer-events-none absolute left-3.5 text-[20px] text-secondary">smartphone</span>
+                    <Smartphone className="pointer-events-none absolute left-3.5 size-5 text-secondary" />
                     <input
                       className="w-full rounded-lg border-0 bg-surface-container-low py-3 pl-11 pr-4 font-body-md text-body-md text-on-surface outline-hidden transition-all placeholder:text-outline focus:bg-surface-container-lowest focus:shadow-md focus:ring-0"
                       id="reset-phone"
@@ -115,7 +115,7 @@ export function ResetPasswordScreen() {
 
                 {error && (
                   <p className="flex items-center gap-1.5 font-body-sm text-body-sm text-error" role="alert">
-                    <span className="material-symbols-outlined text-[16px]">error</span>
+                    <CircleAlert className="size-4 shrink-0" />
                     {error}
                   </p>
                 )}
@@ -127,7 +127,7 @@ export function ResetPasswordScreen() {
                     type="submit"
                   >
                     <span>{busy ? "Please wait…" : otpSent ? "Verify & Login" : "Send OTP"}</span>
-                    <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                    <ArrowRight className="size-[18px] shrink-0" />
                   </button>
                   <Link
                     className="block w-full rounded-lg px-4 py-2.5 text-center font-label-md text-label-md text-primary transition-colors hover:bg-surface-container"
@@ -143,9 +143,7 @@ export function ResetPasswordScreen() {
             <div className="flex flex-col items-center justify-between gap-3 border-t border-surface-dim/40 bg-surface-container p-4 sm:flex-row sm:px-8">
               <div className="flex items-center space-x-3 text-left">
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-whatsapp/15 text-whatsapp">
-                  <span className="material-symbols-outlined text-[18px]" style={FILL}>
-                    forum
-                  </span>
+                  <MessagesSquare className="size-[18px]" fill="currentColor" />
                 </div>
                 <div>
                   <p className="font-label-sm text-label-sm text-on-surface">Need assistance with your portal access?</p>
@@ -158,16 +156,14 @@ export function ResetPasswordScreen() {
                 rel="noopener noreferrer"
                 target="_blank"
               >
-                <span className="material-symbols-outlined text-[15px]" style={FILL}>
-                  chat
-                </span>
+                <MessageCircle className="size-[15px] shrink-0" fill="currentColor" />
                 <span>Chat on WhatsApp</span>
               </a>
             </div>
           </div>
 
           <div className="mt-6 flex flex-wrap items-center justify-center space-x-2 font-body-sm text-body-sm text-secondary">
-            <span className="material-symbols-outlined text-[16px] text-primary">lock</span>
+            <Lock className="size-4 shrink-0 text-primary" />
             <span>256-bit Encrypted Esoteric Portal Gateway</span>
             <span>•</span>
             <span>Vedic Studies Gurukul</span>

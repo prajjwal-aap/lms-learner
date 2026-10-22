@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight, ShoppingBag } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -38,7 +39,7 @@ export function PurchaseHistoryScreen() {
                     className="flex items-center gap-4 rounded-2xl border border-gray-200 bg-white p-4 shadow-2xs transition hover:border-brand-200 hover:shadow-level-1 sm:p-5"
                   >
                     <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-600 sm:flex">
-                      <i className="fa-solid fa-bag-shopping" />
+                      <ShoppingBag className="size-4" />
                     </span>
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-sm font-semibold text-gray-900">
@@ -54,7 +55,7 @@ export function PurchaseHistoryScreen() {
                       <span className="text-sm font-bold text-gray-900">{formatINR(o.amount)}</span>
                       <span className={cn("rounded-full px-2 py-0.5 text-[11px] font-semibold", status.tone)}>{status.label}</span>
                     </div>
-                    <i className="fa-solid fa-chevron-right text-xs text-gray-300" />
+                    <ChevronRight className="size-3 shrink-0 text-gray-300" />
                   </Link>
                 </li>
               );

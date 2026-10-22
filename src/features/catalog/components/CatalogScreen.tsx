@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight, Search } from "lucide-react";
 import Link from "next/link";
 import { useDeferredValue, useMemo, useState } from "react";
 import { FilterDropdownPill } from "@/components/ui/FilterDropdownPill";
@@ -58,7 +59,7 @@ export function CatalogScreen() {
             <p className="mt-1 text-sm text-gray-500">Courses, bundles, e-books and live classes from Occult Gurukul mentors.</p>
           </div>
           <label className="relative md:w-96">
-            <i className="fa-solid fa-magnifying-glass pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm text-purple-400" />
+            <Search className="pointer-events-none absolute left-4 top-1/2 size-3.5 -translate-y-1/2 text-purple-400" />
             <input
               type="search"
               value={search}
@@ -86,7 +87,7 @@ export function CatalogScreen() {
                 <span className="text-xl font-black">{featured.price.price_display}</span>
                 {featured.price.mrp_paise > featured.price.price_paise && <span className="text-sm text-purple-200 line-through">{featured.price.mrp_display}</span>}
                 <span className="ml-auto inline-flex items-center gap-2 rounded-xl bg-white px-4 py-2 text-xs font-bold text-brand-purple transition group-hover:bg-amber-300 group-hover:text-amber-950">
-                  View course <i className="fa-solid fa-arrow-right text-[10px]" />
+                  View course <ArrowRight className="size-2.5 shrink-0" />
                 </span>
               </p>
             </div>
@@ -123,7 +124,7 @@ export function CatalogScreen() {
           <p className="py-12 text-center text-sm text-gray-500">Couldn&apos;t load the catalog. Please try again.</p>
         ) : items.length === 0 ? (
           <div className="space-y-2 rounded-2xl border border-dashed border-purple-200 bg-white p-10 text-center">
-            <i className="fa-solid fa-magnifying-glass text-2xl text-purple-300" />
+            <Search className="mx-auto size-6 text-purple-300" />
             <p className="text-sm font-bold text-gray-900">Nothing matches these filters</p>
             <button
               type="button"

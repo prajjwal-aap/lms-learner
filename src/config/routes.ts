@@ -7,6 +7,8 @@ export const ROUTES = {
     topics: "/onboarding/topics",
   },
   community: "/community",
+  /** Landing page after login / onboarding and for "/". Was `/community` — restore when Community has data. */
+  home: "/courses",
   liveSessions: "/live-sessions",
   courses: "/courses",
   course: (courseId: string) => `/courses/${courseId}`,

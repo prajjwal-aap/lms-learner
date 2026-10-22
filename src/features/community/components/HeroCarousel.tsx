@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { useHeroSlides } from "../api/community.queries";
@@ -29,7 +30,7 @@ export function HeroCarousel() {
             onClick={() => go(-1)}
             className="absolute left-2.5 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-xs text-white hover:bg-black/70"
           >
-            <i className="fa-solid fa-chevron-left" />
+            <ChevronLeft className="size-3" />
           </button>
           <button
             type="button"
@@ -37,7 +38,7 @@ export function HeroCarousel() {
             onClick={() => go(1)}
             className="absolute right-2.5 top-1/2 z-10 flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-black/50 text-xs text-white hover:bg-black/70"
           >
-            <i className="fa-solid fa-chevron-right" />
+            <ChevronRight className="size-3" />
           </button>
         </>
       )}

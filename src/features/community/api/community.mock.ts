@@ -1,3 +1,4 @@
+import { Book, Compass, MessageCircleMore } from "lucide-react";
 import type { CommunitySidebar, HeroSlide, Post } from "../types";
 import { ROUTES } from "@/config/routes";
 
@@ -6,8 +7,8 @@ const INSTRUCTOR_IMG =
 
 export const MOCK_SIDEBAR: CommunitySidebar = {
   nav: [
-    { id: "feed", label: "Feed", icon: "fa-regular fa-compass" },
-    { id: "messages", label: "Messages", icon: "fa-regular fa-comment-dots", badge: 1 },
+    { id: "feed", label: "Feed", icon: Compass },
+    { id: "messages", label: "Messages", icon: MessageCircleMore, badge: 1 },
   ],
   groups: [
     {
@@ -15,7 +16,7 @@ export const MOCK_SIDEBAR: CommunitySidebar = {
       name: "Bhrigu Nandi Nadi",
       hasUnread: true,
       channels: [
-        { id: "bnn-bootcamp", name: "BNN_BnnBoocamp", icon: "fa-solid fa-book", iconClassName: "text-emerald-600", badge: 2 },
+        { id: "bnn-bootcamp", name: "BNN_BnnBoocamp", icon: Book, iconClassName: "text-emerald-600", badge: 2 },
       ],
     },
     {
@@ -23,7 +24,7 @@ export const MOCK_SIDEBAR: CommunitySidebar = {
       name: "Mahalay Sadhana",
       hasUnread: false,
       channels: [
-        { id: "mahalay-oct-2026", name: "Mahalay Sadhana (Online) Oct 2026", icon: "fa-solid fa-book", iconClassName: "text-amber-600" },
+        { id: "mahalay-oct-2026", name: "Mahalay Sadhana (Online) Oct 2026", icon: Book, iconClassName: "text-amber-600" },
       ],
     },
   ],

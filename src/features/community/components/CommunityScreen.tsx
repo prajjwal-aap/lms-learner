@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageCircleMore } from "lucide-react";
 import { useState } from "react";
 import { useCommunitySidebar } from "../api/community.queries";
 import { ChannelSidebar, MobileChannelBar } from "./ChannelSidebar";
@@ -47,7 +48,7 @@ export function CommunityScreen() {
               <h3 className="mb-4 text-sm font-bold text-gray-900">Messages</h3>
               <div className="flex flex-col items-center justify-center py-6 text-center">
                 <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-full border border-gray-300 text-gray-400">
-                  <i className="fa-regular fa-comment-dots text-lg" />
+                  <MessageCircleMore className="size-[18px]" />
                 </div>
                 <p className="max-w-sm text-xs leading-relaxed text-gray-500">
                   You have 1 unread message from Occult Gurukul. Direct messaging will be available here soon.

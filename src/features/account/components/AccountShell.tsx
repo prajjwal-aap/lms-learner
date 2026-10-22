@@ -1,3 +1,4 @@
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ROUTES } from "@/config/routes";
@@ -16,7 +17,7 @@ export function AccountShell({ title, subtitle, backHref = ROUTES.account.home, 
   return (
     <main className="mx-auto w-full max-w-3xl flex-1 px-4 py-8 sm:px-6 md:py-10">
       <Link href={backHref} className="mb-4 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 transition-colors hover:text-brand-700">
-        <i className="fa-solid fa-arrow-left text-xs" />
+        <ArrowLeft className="size-3 shrink-0" />
         {backLabel}
       </Link>
       <h1 className="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">{title}</h1>

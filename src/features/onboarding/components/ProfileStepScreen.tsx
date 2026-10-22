@@ -1,5 +1,19 @@
 "use client";
 
+import {
+  ArrowRight,
+  Calendar,
+  CircleCheck,
+  Clock,
+  GraduationCap,
+  MapPin,
+  Network,
+  Shield,
+  Sparkles,
+  User,
+  WandSparkles,
+  type LucideIcon,
+} from "lucide-react";
 import { useRouter } from "next/navigation";
 import type { FormEvent, ReactNode } from "react";
 import { ROUTES } from "@/config/routes";
@@ -13,9 +27,9 @@ const STEP = 1;
 const INPUT =
   "w-full pl-11 pr-space-md py-3 bg-surface-container-low/70 hover:bg-surface-container-low focus:bg-surface-container-lowest text-on-surface placeholder:text-outline font-body-md text-body-md rounded-xl transition-all duration-200 outline-hidden border-0 focus:ring-0 focus:shadow-[0_0_0_3px_rgba(105,48,195,0.14)]";
 const ASSURANCES = [
-  { icon: "auto_fix_high", label: "100% Free Chart Generation" },
-  { icon: "security", label: "Encrypted Vedic Records" },
-  { icon: "check_circle", label: "Verified Parashara Engine" },
+  { icon: WandSparkles, label: "100% Free Chart Generation" },
+  { icon: Shield, label: "Encrypted Vedic Records" },
+  { icon: CircleCheck, label: "Verified Parashara Engine" },
 ];
 
 /** Step 1 — name, date of birth and optional birth time / place. */
@@ -77,7 +91,7 @@ export function ProfileStepScreen() {
 
           <div className="relative z-10 mb-space-xl text-center">
             <div className="mb-space-sm inline-flex items-center gap-1.5 rounded-full bg-surface-container-low px-space-sm py-0.5 text-primary">
-              <span className="material-symbols-outlined text-[16px]">stars</span>
+              <Sparkles className="size-4 shrink-0" />
               <span className="font-label-sm text-label-sm font-semibold uppercase tracking-wider">Sanskriti Onboarding</span>
             </div>
             <h1 className="mb-space-xs font-headline-lg text-headline-lg font-bold tracking-tight text-on-surface sm:text-[28px] sm:leading-[36px]">
@@ -89,7 +103,7 @@ export function ProfileStepScreen() {
           </div>
 
           <form className="relative z-10 space-y-space-md" onSubmit={onSubmit}>
-            <Field htmlFor="fullName" label="Full Legal Name" required hint="Vedic Nama Sankalp" icon="person">
+            <Field htmlFor="fullName" label="Full Legal Name" required hint="Vedic Nama Sankalp" icon={User}>
               <input
                 className={INPUT}
                 id="fullName"
@@ -101,7 +115,7 @@ export function ProfileStepScreen() {
               />
             </Field>
 
-            <Field htmlFor="dob" label="Date of Birth" required hint="DD / MM / YYYY" icon="calendar_today">
+            <Field htmlFor="dob" label="Date of Birth" required hint="DD / MM / YYYY" icon={Calendar}>
               <input
                 className={INPUT}
                 id="dob"
@@ -113,7 +127,7 @@ export function ProfileStepScreen() {
             </Field>
 
             <div className="grid grid-cols-1 gap-space-md sm:grid-cols-2">
-              <Field htmlFor="birthTime" label="Time of Birth" hint="(Optional)" icon="schedule" help="Needed for precise Lagna & Navamsha">
+              <Field htmlFor="birthTime" label="Time of Birth" hint="(Optional)" icon={Clock} help="Needed for precise Lagna & Navamsha">
                 <input
                   className={INPUT}
                   id="birthTime"
@@ -122,7 +136,7 @@ export function ProfileStepScreen() {
                   onChange={(e) => setProfile({ birthTime: e.target.value })}
                 />
               </Field>
-              <Field htmlFor="birthPlace" label="Place of Birth" hint="(Optional)" icon="location_on" help="Coordinates for planetary degrees">
+              <Field htmlFor="birthPlace" label="Place of Birth" hint="(Optional)" icon={MapPin} help="Coordinates for planetary degrees">
                 <input
                   className={INPUT}
                   id="birthPlace"
@@ -136,7 +150,7 @@ export function ProfileStepScreen() {
 
             <div className="mt-space-sm flex items-center gap-space-md rounded-xl bg-surface-container p-space-md">
               <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-container-highest text-primary">
-                <span className="material-symbols-outlined text-[22px]">hub</span>
+                <Network className="size-[22px]" />
               </div>
               <div className="flex flex-col">
                 <span className="font-label-md text-label-md text-on-surface">Dynamic Jyotish Synthesis</span>
@@ -152,7 +166,7 @@ export function ProfileStepScreen() {
                 type="submit"
               >
                 <span>Continue to Astrological Preferences</span>
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <ArrowRight className="size-[18px] shrink-0" />
               </button>
             </div>
           </form>
@@ -165,7 +179,7 @@ export function ProfileStepScreen() {
             <img alt="Occult Gurukul Reference Platform Overview" className="h-full w-full object-cover object-left" src={ONBOARDING_IMAGE} />
             <div className="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 to-transparent" />
             <span className="absolute bottom-1.5 left-2 flex items-center gap-1 font-label-sm text-label-sm text-surface-bright">
-              <span className="material-symbols-outlined text-[13px]">school</span> Gurukul Campus
+              <GraduationCap className="size-[13px] shrink-0" /> Gurukul Campus
             </span>
           </div>
           <div className="flex flex-col text-left">
@@ -179,7 +193,7 @@ export function ProfileStepScreen() {
         <div className="mt-space-md flex flex-wrap items-center justify-center gap-x-6 gap-y-2 font-label-sm text-label-sm text-secondary">
           {ASSURANCES.map((a) => (
             <span key={a.label} className="flex items-center gap-1.5">
-              <span className="material-symbols-outlined text-[16px] text-primary">{a.icon}</span>
+              <a.icon className="size-4 shrink-0 text-primary" />
               {a.label}
             </span>
           ))}
@@ -193,14 +207,14 @@ type FieldProps = {
   htmlFor: string;
   label: string;
   hint: string;
-  icon: string;
+  icon: LucideIcon;
   required?: boolean;
   help?: string;
   children: ReactNode;
 };
 
 /** Label row + icon-prefixed input wrapper from the design. */
-function Field({ htmlFor, label, hint, icon, required, help, children }: FieldProps) {
+function Field({ htmlFor, label, hint, icon: Icon, required, help, children }: FieldProps) {
   return (
     <div className="flex flex-col gap-1.5">
       <label className="flex items-center justify-between font-label-md text-label-md text-on-surface" htmlFor={htmlFor}>
@@ -211,9 +225,7 @@ function Field({ htmlFor, label, hint, icon, required, help, children }: FieldPr
         <span className="font-label-sm text-label-sm text-secondary">{hint}</span>
       </label>
       <div className="group relative flex items-center">
-        <span className="material-symbols-outlined pointer-events-none absolute left-3.5 text-[20px] text-secondary transition-colors group-focus-within:text-primary">
-          {icon}
-        </span>
+        <Icon className="pointer-events-none absolute left-3.5 size-5 text-secondary transition-colors group-focus-within:text-primary" />
         {children}
       </div>
       {help && <p className="mt-0.5 font-body-sm text-body-sm leading-tight text-secondary">{help}</p>}

@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 export type GoalId = "self" | "guidance" | "hobby" | "professional";
 
 export type GoalOption = {
@@ -7,15 +9,14 @@ export type GoalOption = {
   tag: string;
   tagTone: "primary" | "secondary";
   description: string;
-  /** Material Symbols icon name. */
-  icon: string;
+  icon: LucideIcon;
 };
 
 export type Topic = {
   id: string;
   label: string;
   sub: string;
-  icon: string;
+  icon: LucideIcon;
 };
 
 export type OnboardingProfile = {

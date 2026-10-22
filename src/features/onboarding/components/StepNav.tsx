@@ -1,3 +1,4 @@
+import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ONBOARDING_STEPS, TOTAL_STEPS } from "../steps";
@@ -19,7 +20,7 @@ export function StepNav({ step }: { step: number }) {
           className="group flex items-center gap-space-xs rounded-lg px-space-sm py-space-xs font-label-md text-label-md text-secondary transition-colors hover:bg-surface-container hover:text-primary"
           href={prev.href}
         >
-          <span className="material-symbols-outlined text-[18px] transition-transform group-hover:-translate-x-0.5">arrow_back</span>
+          <ArrowLeft className="size-[18px] shrink-0 transition-transform group-hover:-translate-x-0.5" />
           <span>Back</span>
         </Link>
       ) : (

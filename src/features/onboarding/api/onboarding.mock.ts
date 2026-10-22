@@ -1,3 +1,23 @@
+import {
+  Award,
+  BookOpenText,
+  Briefcase,
+  Compass,
+  Flower2,
+  Gem,
+  Grid3x3,
+  Hand,
+  Hash,
+  Heart,
+  Hexagon,
+  Hourglass,
+  MapPinHouse,
+  QrCode,
+  ScanFace,
+  Sparkle,
+  SquareStack,
+  WandSparkles,
+} from "lucide-react";
 import type { GoalId, GoalOption, Topic } from "../types";
 
 export const MOCK_GOALS: GoalOption[] = [
@@ -7,7 +27,7 @@ export const MOCK_GOALS: GoalOption[] = [
     tag: "Atma Gyan",
     tagTone: "primary",
     description: "Decode personal horoscope, destiny cycles (Dasha), core strengths, and Karmic lessons with ancient Jyotish charts.",
-    icon: "self_improvement",
+    icon: Flower2,
   },
   {
     id: "guidance",
@@ -15,7 +35,7 @@ export const MOCK_GOALS: GoalOption[] = [
     tag: "Muhurta & Yoga",
     tagTone: "secondary",
     description: "Navigate career transitions, marriage compatibility (Kundali Milan), and auspicious business timing.",
-    icon: "explore",
+    icon: Compass,
   },
   {
     id: "hobby",
@@ -23,7 +43,7 @@ export const MOCK_GOALS: GoalOption[] = [
     tag: "Vidya Samvardhan",
     tagTone: "secondary",
     description: "Explore ancient occult sciences, celestial planetary movements, and sacred numerology for personal curiosity.",
-    icon: "magic_button",
+    icon: WandSparkles,
   },
   {
     id: "professional",
@@ -31,25 +51,25 @@ export const MOCK_GOALS: GoalOption[] = [
     tag: "Jyotish Acharya",
     tagTone: "primary",
     description: "Build a certified consulting practice, master client consultations, and guide seekers worldwide.",
-    icon: "workspace_premium",
+    icon: Award,
   },
 ];
 
 export const MOCK_TOPICS: Topic[] = [
-  { id: "vedic-astrology", label: "Vedic Astrology", sub: "Jyotish Vidya", icon: "qr_code_2" },
-  { id: "numerology", label: "Numerology", sub: "Ank Jyotish", icon: "pin" },
-  { id: "tarot", label: "Tarot Reading", sub: "Archetypal Divination", icon: "style" },
-  { id: "palmistry", label: "Palmistry", sub: "Hastarekha Vigyan", icon: "front_hand" },
-  { id: "vastu", label: "Vastu Shastra", sub: "Spatial Energy", icon: "home_pin" },
-  { id: "gemstones", label: "Gemstones & Remedy", sub: "Ratna Vidya", icon: "diamond" },
-  { id: "career-astrology", label: "Career Astrology", sub: "Karma & Profession", icon: "work" },
-  { id: "nakshatra", label: "Nakshatra", sub: "27 Lunar Mansions", icon: "flare" },
-  { id: "relationship-astrology", label: "Relationship Astrology", sub: "Kundli Milan & Synastry", icon: "favorite" },
-  { id: "muhurats", label: "Muhurats", sub: "Auspicious Timings", icon: "hourglass_top" },
-  { id: "kundli", label: "Kundli Reading", sub: "Birth Chart Synthesis", icon: "grid_goldenratio" },
-  { id: "face-reading", label: "Face Reading", sub: "Samudrika Shastra", icon: "face" },
-  { id: "zodiac", label: "Zodiac Signs", sub: "12 Rashi Archetypes", icon: "token" },
-  { id: "lal-kitab", label: "Lal Kitab", sub: "Folk Astrological Remedies", icon: "menu_book" },
+  { id: "vedic-astrology", label: "Vedic Astrology", sub: "Jyotish Vidya", icon: QrCode },
+  { id: "numerology", label: "Numerology", sub: "Ank Jyotish", icon: Hash },
+  { id: "tarot", label: "Tarot Reading", sub: "Archetypal Divination", icon: SquareStack },
+  { id: "palmistry", label: "Palmistry", sub: "Hastarekha Vigyan", icon: Hand },
+  { id: "vastu", label: "Vastu Shastra", sub: "Spatial Energy", icon: MapPinHouse },
+  { id: "gemstones", label: "Gemstones & Remedy", sub: "Ratna Vidya", icon: Gem },
+  { id: "career-astrology", label: "Career Astrology", sub: "Karma & Profession", icon: Briefcase },
+  { id: "nakshatra", label: "Nakshatra", sub: "27 Lunar Mansions", icon: Sparkle },
+  { id: "relationship-astrology", label: "Relationship Astrology", sub: "Kundli Milan & Synastry", icon: Heart },
+  { id: "muhurats", label: "Muhurats", sub: "Auspicious Timings", icon: Hourglass },
+  { id: "kundli", label: "Kundli Reading", sub: "Birth Chart Synthesis", icon: Grid3x3 },
+  { id: "face-reading", label: "Face Reading", sub: "Samudrika Shastra", icon: ScanFace },
+  { id: "zodiac", label: "Zodiac Signs", sub: "12 Rashi Archetypes", icon: Hexagon },
+  { id: "lal-kitab", label: "Lal Kitab", sub: "Folk Astrological Remedies", icon: BookOpenText },
 ];
 
 /** Pre-selected choices shown in the design. */

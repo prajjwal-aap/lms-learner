@@ -1,6 +1,7 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
+import { Users, Video } from "lucide-react";
 import { isApiError } from "@/lib/api";
 import { openInNewTab } from "@/lib/openInNewTab";
 import { useNow } from "@/lib/useNow";
@@ -73,7 +74,7 @@ export function SessionCard({ registration: r }: { registration: LiveRegistratio
           </p>
           {!r.attendee.is_self && (
             <p className="mt-1 text-xs font-medium text-purple-700">
-              <i className="fa-solid fa-user-group mr-1.5" />
+              <Users className="mr-1.5 inline-block size-3 align-[-0.125em]" />
               Attendee: {r.attendee.name}
             </p>
           )}
@@ -100,7 +101,7 @@ export function SessionCard({ registration: r }: { registration: LiveRegistratio
                   title={canJoin ? undefined : "Join opens 30 minutes before the start"}
                   className={primaryBtn}
                 >
-                  <i className="fa-solid fa-video text-[11px]" />
+                  <Video className="size-[11px] shrink-0" />
                   {join.isPending ? "Opening…" : "Join Room"}
                 </button>
               </>

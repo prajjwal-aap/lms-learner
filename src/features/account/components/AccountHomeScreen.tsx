@@ -1,5 +1,6 @@
 "use client";
 
+import { ChevronRight, IdCard, Mail, Receipt, Trash, User, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -8,11 +9,11 @@ import { useProfile } from "../api/account.queries";
 import { DeleteAccountDialog } from "./DeleteAccountDialog";
 import { ProfileAvatar } from "./ProfileAvatar";
 
-const SECTIONS = [
-  { href: ROUTES.account.profile, icon: "fa-user", title: "View profile", text: "See your profile and the community posts you've shared" },
-  { href: ROUTES.account.personalInfo, icon: "fa-id-card", title: "Personal information", text: "Update your name, birth details and location" },
-  { href: ROUTES.account.purchases, icon: "fa-receipt", title: "Purchase history", text: "View your orders and download purchased e-books" },
-  { href: ROUTES.account.contact, icon: "fa-envelope", title: "Phone & email", text: "See your registered phone number and update your email" },
+const SECTIONS: { href: string; icon: LucideIcon; title: string; text: string }[] = [
+  { href: ROUTES.account.profile, icon: User, title: "View profile", text: "See your public profile" }, // was: "See your profile and the community posts you've shared"
+  { href: ROUTES.account.personalInfo, icon: IdCard, title: "Personal information", text: "Update your name, birth details and location" },
+  { href: ROUTES.account.purchases, icon: Receipt, title: "Purchase history", text: "View your orders and download purchased e-books" },
+  { href: ROUTES.account.contact, icon: Mail, title: "Phone & email", text: "See your registered phone number and update your email" },
 ];
 
 /** "My account" hub: greeting with photo, section cards, logout and delete account. */
@@ -54,11 +55,11 @@ export function AccountHomeScreen() {
             className="group flex flex-col rounded-2xl border border-gray-200 bg-white p-6 shadow-2xs transition hover:border-brand-200 hover:shadow-level-2"
           >
             <span className="flex h-10 w-10 items-center justify-center rounded-full bg-brand-50 text-brand-600">
-              <i className={`fa-solid ${s.icon}`} />
+              <s.icon className="size-4" />
             </span>
             <span className="mt-5 flex items-center justify-between gap-2 text-lg font-bold text-gray-900">
               {s.title}
-              <i className="fa-solid fa-chevron-right text-sm text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-brand-600" />
+              <ChevronRight className="size-3.5 shrink-0 text-gray-400 transition group-hover:translate-x-0.5 group-hover:text-brand-600" />
             </span>
             <span className="mt-1.5 text-sm leading-relaxed text-gray-500">{s.text}</span>
           </Link>
@@ -71,7 +72,7 @@ export function AccountHomeScreen() {
           Logout
         </button>
         <button type="button" onClick={() => setDeleting(true)} className="inline-flex items-center gap-2 text-sm font-medium text-red-600 hover:underline">
-          <i className="fa-solid fa-trash-can text-xs" />
+          <Trash className="size-3 shrink-0" />
           Permanently delete your account
         </button>
       </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { ShoppingCart, Ticket, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, type FormEvent } from "react";
 import { ROUTES } from "@/config/routes";
@@ -53,7 +54,7 @@ export function CartDrawer() {
             Your cart{items.length > 0 && <span className="ml-2 text-sm font-medium text-gray-500">({items.length})</span>}
           </h2>
           <button type="button" onClick={close} aria-label="Close cart" className="flex h-9 w-9 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100">
-            <i className="fa-solid fa-xmark" />
+            <X className="size-4" />
           </button>
         </header>
 
@@ -69,7 +70,7 @@ export function CartDrawer() {
           ) : items.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center gap-3 text-center">
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-brand-50 text-xl text-brand-600">
-                <i className="fa-solid fa-cart-shopping" />
+                <ShoppingCart className="size-5" />
               </span>
               <p className="text-sm font-semibold text-gray-900">Your cart is empty</p>
               <p className="text-xs text-gray-500">Courses, e-books and live classes you add will show up here.</p>
@@ -167,7 +168,7 @@ function CouponField({ code }: { code: string | null }) {
     return (
       <div className="flex items-center justify-between rounded-lg border border-dashed border-emerald-300 bg-emerald-50 px-3 py-2 text-sm">
         <span className="text-emerald-800">
-          <i className="fa-solid fa-ticket mr-2" />
+          <Ticket className="mr-2 inline-block size-3.5 align-[-0.125em]" />
           <strong>{code}</strong> added
         </span>
         <button type="button" onClick={() => remove.mutate(undefined)} disabled={remove.isPending} className="text-xs font-semibold text-emerald-800 hover:underline">

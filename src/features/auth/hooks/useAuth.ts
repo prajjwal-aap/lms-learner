@@ -23,7 +23,7 @@ export function useVerifyOtp() {
     onSuccess: ({ learner, isFirstLogin, deletionScheduled }: SignInResult) => {
       queryClient.setQueryData(authKeys.me, learner);
       deletionNotice.save(deletionScheduled);
-      router.replace(isFirstLogin ? ROUTES.onboarding.profile : (safeNextPath(params.get("next")) ?? ROUTES.community));
+      router.replace(isFirstLogin ? ROUTES.onboarding.profile : (safeNextPath(params.get("next")) ?? ROUTES.home));
     },
   });
 }

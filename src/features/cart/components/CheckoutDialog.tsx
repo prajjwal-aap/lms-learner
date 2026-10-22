@@ -1,5 +1,6 @@
 "use client";
 
+import { CircleCheck, CircleX, Hourglass, LoaderCircle, Lock, User, Users, X, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef, useState } from "react";
@@ -97,7 +98,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
                 Checkout
               </h2>
               <button type="button" onClick={close} aria-label="Close" className="flex h-9 w-9 items-center justify-center rounded-full text-gray-500 hover:bg-gray-100">
-                <i className="fa-solid fa-xmark" />
+                <X className="size-4" />
               </button>
             </div>
 
@@ -115,8 +116,8 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
               <legend className="text-sm font-semibold text-gray-900">Who is this for?</legend>
               <div className="mt-2 grid grid-cols-2 gap-2">
                 {[
-                  { value: false, label: "Myself", icon: "fa-user" },
-                  { value: true, label: "Someone else", icon: "fa-user-group" },
+                  { value: false, label: "Myself", icon: User },
+                  { value: true, label: "Someone else", icon: Users },
                 ].map((o) => (
                   <label
                     key={o.label}
@@ -126,7 +127,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
                     )}
                   >
                     <input type="radio" name="for" className="sr-only" checked={forOther === o.value} onChange={() => setForOther(o.value)} />
-                    <i className={cn("fa-solid", o.icon)} />
+                    <o.icon className="size-3.5 shrink-0" />
                     {o.label}
                   </label>
                 ))}
@@ -150,7 +151,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
               disabled={!canPay}
               className="mt-5 w-full rounded-xl bg-brand-600 py-3 text-sm font-bold text-white shadow-md shadow-brand-600/20 transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              <i className="fa-solid fa-lock mr-2 text-xs" />
+              <Lock className="mr-2 inline-block size-3 align-[-0.125em]" />
               Pay {formatINR(total)}
             </button>
             <p className="mt-3 text-center text-[11px] text-gray-400">Payments are processed securely by Razorpay or Cashfree.</p>
@@ -159,7 +160,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
 
         {busy && (
           <div className="flex flex-col items-center px-6 py-12 text-center" aria-live="polite">
-            <i className="fa-solid fa-spinner animate-spin text-3xl text-brand-600" />
+            <LoaderCircle className="size-[30px] animate-spin text-brand-600" />
             <p className="mt-4 text-sm font-semibold text-gray-900">{step.label}</p>
             <p className="mt-1 text-xs text-gray-500">Please don&apos;t close this window.</p>
           </div>
@@ -167,7 +168,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
 
         {step.name === "success" && (
           <Result
-            icon="fa-circle-check"
+            icon={CircleCheck}
             tone="text-emerald-600 bg-emerald-50"
             title="Payment successful"
             text={goesToLive ? "You're registered. Your session is in Live Sessions." : "Your purchase is ready. It can take a few seconds to appear in My Learnings."}
@@ -182,7 +183,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
         )}
 
         {step.name === "failed" && (
-          <Result icon="fa-circle-xmark" tone="text-red-600 bg-red-50" title="Payment failed" text="No money was taken. You can try again with another payment method.">
+          <Result icon={CircleX} tone="text-red-600 bg-red-50" title="Payment failed" text="No money was taken. You can try again with another payment method.">
             <button type="button" onClick={() => setStep({ name: "review" })} className="w-full rounded-xl bg-brand-600 py-3 text-sm font-bold text-white hover:bg-brand-700">
               Try again
             </button>
@@ -194,7 +195,7 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
 
         {step.name === "pending" && (
           <Result
-            icon="fa-hourglass-half"
+            icon={Hourglass}
             tone="text-amber-600 bg-amber-50"
             title="Payment is being confirmed"
             text="If you completed the payment, your access will appear shortly. You can check the status in Purchase history."
@@ -212,11 +213,11 @@ function CheckoutFlow({ request }: { request: CheckoutRequest }) {
   );
 }
 
-function Result({ icon, tone, title, text, children }: { icon: string; tone: string; title: string; text: string; children: React.ReactNode }) {
+function Result({ icon: Icon, tone, title, text, children }: { icon: LucideIcon; tone: string; title: string; text: string; children: React.ReactNode }) {
   return (
     <div className="flex flex-col items-center px-6 py-10 text-center">
-      <span className={cn("flex h-14 w-14 items-center justify-center rounded-full text-2xl", tone)}>
-        <i className={cn("fa-solid", icon)} />
+      <span className={cn("flex h-14 w-14 items-center justify-center rounded-full", tone)}>
+        <Icon className="size-6" />
       </span>
       <h2 id="checkout-title" className="mt-4 text-lg font-bold text-gray-900">
         {title}

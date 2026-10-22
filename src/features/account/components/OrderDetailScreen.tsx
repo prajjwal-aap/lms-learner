@@ -1,5 +1,6 @@
 "use client";
 
+import { BookOpen, Download, FileText, Play } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/config/routes";
 import { cn, formatINR } from "@/lib/utils";
@@ -99,25 +100,25 @@ function DeliverableRow({ item: d }: { item: Deliverable }) {
       <div className="flex flex-wrap gap-2">
         {d.downloadUrl && (
           <a href={d.downloadUrl} target="_blank" rel="noreferrer" className={linkClass}>
-            <i className="fa-solid fa-download" />
+            <Download className="size-3 shrink-0" />
             Download
           </a>
         )}
         {d.replayUrl && (
           <a href={d.replayUrl} target="_blank" rel="noreferrer" className={linkClass}>
-            <i className="fa-solid fa-play" />
+            <Play className="size-3 shrink-0" fill="currentColor" />
             Watch replay
           </a>
         )}
         {d.workbookUrl && (
           <a href={d.workbookUrl} target="_blank" rel="noreferrer" className={linkClass}>
-            <i className="fa-solid fa-file-lines" />
+            <FileText className="size-3 shrink-0" />
             Workbook
           </a>
         )}
         {isCourse && (
           <Link href={ROUTES.courses} className={linkClass}>
-            <i className="fa-solid fa-book-open" />
+            <BookOpen className="size-3 shrink-0" />
             Open in My Learnings
           </Link>
         )}

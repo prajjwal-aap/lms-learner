@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight, ChevronDown, CircleAlert, GraduationCap, Headset, ShieldCheck, Smartphone } from "lucide-react";
 import Link from "next/link";
 import { useState, type FormEvent } from "react";
 import { ROUTES } from "@/config/routes";
@@ -53,7 +54,7 @@ export function LoginScreen() {
         <div className="flex w-full flex-col gap-space-md rounded-xl border border-outline-variant/30 bg-surface-container-lowest p-space-lg shadow-md md:p-space-xl">
           <div className="flex flex-col items-center space-y-space-xs text-center">
             <div className="mb-space-xs flex h-12 w-12 items-center justify-center rounded-full bg-primary-container/10 text-primary">
-              <span className="material-symbols-outlined text-[28px]">school</span>
+              <GraduationCap className="size-7" />
             </div>
             <span className="font-label-sm text-label-sm font-semibold uppercase tracking-wider text-primary">Student Access</span>
             <h1 className="font-headline-lg text-headline-lg tracking-tight text-on-surface">Learner Login</h1>
@@ -65,7 +66,7 @@ export function LoginScreen() {
           <form className="mt-space-xs space-y-space-md" onSubmit={onSubmit}>
             <div className="space-y-space-xs">
               <label className="flex items-center gap-space-xs font-label-md text-label-md font-semibold text-on-surface" htmlFor="learner-phone">
-                <span className="material-symbols-outlined text-[16px] text-primary">smartphone</span>Mobile Number
+                <Smartphone className="size-4 shrink-0 text-primary" />Mobile Number
               </label>
               <div className="flex gap-space-xs">
                 <div className="relative w-28 shrink-0">
@@ -74,7 +75,7 @@ export function LoginScreen() {
                       <span className="text-[14px]">🇮🇳</span>
                       <span className="font-label-md text-label-md">+91</span>
                     </span>
-                    <span className="material-symbols-outlined text-[18px] text-outline">expand_more</span>
+                    <ChevronDown className="size-[18px] shrink-0 text-outline" />
                   </div>
                 </div>
                 <div className="relative flex-1">
@@ -95,7 +96,7 @@ export function LoginScreen() {
             </div>
 
             <p className="flex items-center gap-space-xs font-body-sm text-body-sm text-on-surface-variant">
-              <span className="material-symbols-outlined shrink-0 text-[16px] text-primary">verified_user</span>A {OTP_LENGTH}-digit one-time password
+              <ShieldCheck className="size-4 shrink-0 text-primary" />A {OTP_LENGTH}-digit one-time password
               will be sent by SMS. New here? Your account is created on first login.
             </p>
 
@@ -106,7 +107,7 @@ export function LoginScreen() {
                 type="submit"
               >
                 <span>{send.isPending ? "Sending OTP…" : "Send OTP Verification"}</span>
-                <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                <ArrowRight className="size-[18px] shrink-0" />
               </button>
             )}
 
@@ -153,7 +154,7 @@ export function LoginScreen() {
 
             {error && (
               <p className="flex items-center gap-space-xs font-body-sm text-body-sm text-error" role="alert">
-                <span className="material-symbols-outlined text-[16px]">error</span>
+                <CircleAlert className="size-4 shrink-0" />
                 {error}
               </p>
             )}
@@ -162,7 +163,7 @@ export function LoginScreen() {
           <div className="flex items-center justify-between border-t border-outline-variant/30 pt-space-xs font-body-sm text-body-sm text-on-surface-variant">
             <span>Having trouble?</span>
             <Link className="inline-flex items-center gap-space-xs font-semibold text-primary hover:underline" href={ROUTES.resetPassword}>
-              <span className="material-symbols-outlined text-[16px]">support_agent</span>Student Support Desk
+              <Headset className="size-4 shrink-0" />Student Support Desk
             </Link>
           </div>
         </div>

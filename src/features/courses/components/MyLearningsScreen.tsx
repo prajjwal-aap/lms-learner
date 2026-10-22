@@ -1,5 +1,7 @@
 "use client";
 
+import { BookOpen, GraduationCap, LayoutGrid, Play, Search, Video } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -11,11 +13,11 @@ import type { AccessStatus, LibraryCard, LibraryTypeFilter } from "../types";
 const RESOURCE_OF_TAB: Record<LibraryTypeFilter, LibraryCard["resource"]["type"]> = { COURSE: "COURSE", EBOOK: "PUBLICATION", LIVE: "LIVE_SESSION" };
 import { libraryHref, LibraryCardView } from "./LibraryCardView";
 
-const TYPE_TABS: { value: LibraryTypeFilter | "ALL"; label: string; icon: string }[] = [
-  { value: "ALL", label: "All", icon: "fa-border-all" },
-  { value: "COURSE", label: "Courses", icon: "fa-graduation-cap" },
-  { value: "EBOOK", label: "E-books", icon: "fa-book-open" },
-  { value: "LIVE", label: "Live classes", icon: "fa-video" },
+const TYPE_TABS: { value: LibraryTypeFilter | "ALL"; label: string; icon: LucideIcon }[] = [
+  { value: "ALL", label: "All", icon: LayoutGrid },
+  { value: "COURSE", label: "Courses", icon: GraduationCap },
+  { value: "EBOOK", label: "E-books", icon: BookOpen },
+  { value: "LIVE", label: "Live classes", icon: Video },
 ];
 
 const STATUS_PILLS: { value: AccessStatus; label: string }[] = [
@@ -70,7 +72,7 @@ export function MyLearningsScreen() {
               </div>
             </div>
             <span className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white transition group-hover:bg-brand-700">
-              <i className="fa-solid fa-play text-xs" />
+              <Play className="size-3 shrink-0" fill="currentColor" />
               Resume
             </span>
           </div>
@@ -92,14 +94,14 @@ export function MyLearningsScreen() {
                 type === t.value ? "border-brand-800 bg-brand-50 font-semibold text-brand-800" : "border-gray-200 font-medium text-gray-600 hover:bg-gray-50",
               )}
             >
-              <i className={cn("fa-solid text-xs", t.icon)} />
+              <t.icon className="size-3 shrink-0" />
               {t.label}
             </button>
           ))}
         </div>
         <div className="flex gap-3">
           <label className="relative flex-1 lg:w-80">
-            <i className="fa-solid fa-magnifying-glass pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-sm text-gray-400" />
+            <Search className="pointer-events-none absolute left-3.5 top-1/2 size-3.5 -translate-y-1/2 text-gray-400" />
             <input
               type="search"
               value={search}
@@ -142,7 +144,7 @@ export function MyLearningsScreen() {
         <p className="py-16 text-center text-sm text-gray-500">Couldn&apos;t load your library. Please try again.</p>
       ) : items.length === 0 ? (
         <div className="flex flex-col items-center gap-3 py-16 text-center">
-          <i className="fa-solid fa-book-open text-3xl text-gray-300" />
+          <BookOpen className="size-[30px] text-gray-300" />
           <p className="text-sm font-semibold text-gray-700">
             {search ? "Nothing matches your search" : status === "EXPIRED" ? "No expired items" : "Nothing here yet"}
           </p>

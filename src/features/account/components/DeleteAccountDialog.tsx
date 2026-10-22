@@ -1,5 +1,6 @@
 "use client";
 
+import { Trash, UserX } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLogout } from "@/features/auth";
 import { useDeleteAccount } from "../api/account.queries";
@@ -28,7 +29,7 @@ export function DeleteAccountDialog({ onClose }: { onClose: () => void }) {
         {done ? (
           <div className="text-center">
             <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600">
-              <i className="fa-solid fa-user-xmark" />
+              <UserX className="size-4" />
             </div>
             <h2 id="delete-account-title" className="text-lg font-bold text-gray-900">
               {done.scheduled ? "Deletion scheduled" : "Account deleted"}
@@ -42,7 +43,7 @@ export function DeleteAccountDialog({ onClose }: { onClose: () => void }) {
         ) : (
           <>
             <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-red-50 text-red-600">
-              <i className="fa-solid fa-trash-can" />
+              <Trash className="size-4" />
             </div>
             <h2 id="delete-account-title" className="text-lg font-bold text-gray-900">
               Delete your account?

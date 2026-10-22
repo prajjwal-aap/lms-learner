@@ -1,5 +1,6 @@
 "use client";
 
+import { ArrowRight, Calendar, Check, CircleCheck, LoaderCircle, ShoppingCartPlus } from "lucide-react";
 import Link from "next/link";
 import { ROUTES } from "@/config/routes";
 import { useAddToCart, useCart } from "@/features/cart";
@@ -54,7 +55,7 @@ export function ProductCard({ product: p, owned }: Props) {
           </div>
           {p.next_session_at && (
             <p className="text-[11px] font-semibold text-rose-600">
-              <i className="fa-regular fa-calendar mr-1" />
+              <Calendar className="mr-1 inline-block size-[11px] align-[-0.125em]" />
               {formatSlot(p.next_session_at)}
             </p>
           )}
@@ -79,7 +80,7 @@ export function ProductCard({ product: p, owned }: Props) {
             href={href}
             className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-emerald-50 px-3 py-2.5 text-xs font-bold text-emerald-700 transition hover:bg-emerald-100"
           >
-            <i className="fa-solid fa-circle-check text-[11px]" />
+            <CircleCheck className="size-[11px] shrink-0" />
             Purchased
           </Link>
         ) : (
@@ -89,7 +90,7 @@ export function ProductCard({ product: p, owned }: Props) {
               className="flex flex-1 items-center justify-center gap-1.5 rounded-xl border border-brand-purple px-3 py-2.5 text-xs font-bold text-brand-purple transition duration-200 hover:bg-brand-purple hover:text-white"
             >
               {p.price.is_free ? "Enroll free" : isLiveType(p.type) ? "Pick a slot" : "View details"}
-              <i className="fa-solid fa-arrow-right text-[10px]" />
+              <ArrowRight className="size-2.5 shrink-0" />
             </Link>
             {!p.price.is_free && !isLiveType(p.type) && (
               <button
@@ -103,7 +104,7 @@ export function ProductCard({ product: p, owned }: Props) {
                   inCart ? "border-brand-purple bg-brand-purple text-white" : "border-purple-100 text-brand-purple hover:bg-brand-purple-light",
                 )}
               >
-                <i className={cn("fa-solid", add.isPending ? "fa-spinner animate-spin" : inCart ? "fa-check" : "fa-cart-plus")} />
+                {add.isPending ? <LoaderCircle className="size-3 animate-spin" /> : inCart ? <Check className="size-3" /> : <ShoppingCartPlus className="size-3" />}
               </button>
             )}
           </>
