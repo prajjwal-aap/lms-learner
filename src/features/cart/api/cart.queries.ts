@@ -31,9 +31,9 @@ export function useAddToCart() {
   const openDrawer = useCartUi((s) => s.openDrawer);
   return useCartMutation(
     (input: AddToCartInput & { title: string; price: number }) =>
-      addToCart({ productSlug: input.productSlug, productType: input.productType, batchId: input.batchId }),
+      addToCart({ productId: input.productId, productSlug: input.productSlug, productType: input.productType, planId: input.planId, liveSessionId: input.liveSessionId }),
     (_cart, input) => {
-      track("add_to_cart", commerceParams([{ item_id: input.productSlug, item_name: input.title, item_category: input.productType, price: input.price, quantity: 1 }]));
+      track("add_to_cart", commerceParams([{ item_id: input.productId, item_name: input.title, item_category: input.productType, price: input.price, quantity: 1 }]));
       openDrawer();
     },
   );

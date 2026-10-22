@@ -17,6 +17,15 @@ export type ApiErrorCode =
   | "PROVIDER_UNAVAILABLE"
   | "RATE_LIMITED"
   | "VALIDATION_ERROR"
+  // App cart / checkout (§6, §7.1)
+  | "MIXED_CART"
+  | "PLAN_NOT_AVAILABLE"
+  | "PLAN_REQUIRED"
+  | "SESSION_REQUIRED"
+  | "SESSION_NOT_AVAILABLE"
+  | "ALREADY_REGISTERED"
+  | "SOLD_OUT"
+  | "CATALOG_UNAVAILABLE"
   | "SESSION_EXPIRED"
   | "TOKEN_EXPIRED"
   | (string & {});

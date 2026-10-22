@@ -46,7 +46,7 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
   const startCheckout = useCartUi((s) => s.startCheckout);
   const enroll = useEnrollFree();
   const register = useRegisterFree();
-  const inCart = cart?.items.some((i) => i.productSlug === product.slug) ?? false;
+  const inCart = cart?.items.some((i) => i.productId === product.id) ?? false;
 
   const free = plan ? plan.type === "FREE" || plan.price_paise === 0 : product.price.is_free;
   const pricePaise = plan?.price_paise ?? product.price.price_paise;
@@ -54,8 +54,8 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
   const off = discountPct(pricePaise, mrpPaise);
   const needsSlot = live && sessions.length > 0;
   const slotMissing = needsSlot && !session;
-  // The cart has no plan field, so only the default plan can go through it.
-  const canCart = !live && !free && (!plan || plan.is_default);
+  // The app cart carries planId + liveSessionId, so any paid plan can go in; live products need a slot picked first.
+  const canCart = !free && (!live || !!session);
   const freeDone = enroll.isSuccess || register.isSuccess;
   const freeError = enroll.error ?? register.error;
 
@@ -190,7 +190,19 @@ export function PurchasePanel({ page, owned, ownedHref }: Props) {
                 {canCart && (
                   <button
                     type="button"
-                    onClick={() => (inCart ? useCartUi.getState().openDrawer() : add.mutate({ productSlug: product.slug, productType: product.type, title: product.title, price: pricePaise / 100 }))}
+                    onClick={() =>
+                      inCart
+                        ? useCartUi.getState().openDrawer()
+                        : add.mutate({
+                            productId: product.id,
+                            productSlug: product.slug,
+                            productType: product.type,
+                            planId: plan?.id,
+                            liveSessionId: session?.id,
+                            title: product.title,
+                            price: pricePaise / 100,
+                          })
+                    }
                     disabled={add.isPending}
                     className="w-full rounded-xl border border-brand-600 py-3 text-sm font-bold text-brand-700 transition hover:bg-brand-50 disabled:opacity-50"
                   >

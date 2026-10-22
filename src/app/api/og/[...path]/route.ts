@@ -3,7 +3,7 @@ import { errorResponse, gatewayFetch, relay } from "@/server/gateway";
 import { readSession } from "@/server/session";
 
 /** Gateway areas the learner app may reach. /auth stays behind /api/auth so tokens never reach the browser. */
-const ALLOWED_ROOTS = new Set(["users", "catalog", "og-order", "prepare-order-payment", "lms", "live", "events"]);
+const ALLOWED_ROOTS = new Set(["users", "catalog", "og-order", "app", "lms", "live", "events"]);
 
 type Ctx = { params: Promise<{ path: string[] }> };
 

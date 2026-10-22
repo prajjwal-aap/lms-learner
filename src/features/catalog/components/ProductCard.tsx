@@ -19,7 +19,7 @@ type Props = { product: Product; owned?: LibraryCard };
 export function ProductCard({ product: p, owned }: Props) {
   const { data: cart } = useCart();
   const add = useAddToCart();
-  const inCart = cart?.items.some((i) => i.productSlug === p.slug) ?? false;
+  const inCart = cart?.items.some((i) => i.productId === p.id) ?? false;
   const off = discountPct(p.price.price_paise, p.price.mrp_paise);
   const href = ROUTES.product(p.slug);
 
@@ -95,7 +95,10 @@ export function ProductCard({ product: p, owned }: Props) {
             {!p.price.is_free && !isLiveType(p.type) && (
               <button
                 type="button"
-                onClick={() => !inCart && add.mutate({ productSlug: p.slug, productType: p.type, title: p.title, price: p.price.price_paise / 100 })}
+                onClick={() =>
+                  !inCart &&
+                  add.mutate({ productId: p.id, productSlug: p.slug, productType: p.type, planId: p.price.plan_id || undefined, title: p.title, price: p.price.price_paise / 100 })
+                }
                 disabled={add.isPending}
                 title={inCart ? "In your cart" : "Add to cart"}
                 aria-label={inCart ? `${p.title} is in your cart` : `Add ${p.title} to cart`}

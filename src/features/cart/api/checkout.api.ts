@@ -2,6 +2,7 @@ import { isMocked } from "@/config/features";
 import { recordMockOrder } from "@/features/account";
 import { api, isApiError } from "@/lib/api";
 import { mockDelay } from "@/lib/mockApi";
+import { friendlyCartError } from "../lib/errors";
 import type { Beneficiary, CheckoutRequest, FamilyMember, PreparedPayment, Relation, ResolvedBeneficiary } from "../types";
 import { getCart, resetMockCartAfterCheckout } from "./cart.api";
 
@@ -10,7 +11,10 @@ const mocked = () => isMocked("store");
 /** Mock orders move READY_FOR_PAYMENT → PAID → FULFILLED as they are polled. */
 const mockOrderStatus = new Map<string, string>();
 
-/** POST /prepare-order-payment (§7.1): creates the order and the payment in one call. */
+/**
+ * POST /app/v1/prepare-order-payment (§7.1): creates the order and the payment in one call. The app URL takes
+ * catalog product ids + planId / liveSessionId (the plain /prepare-order-payment is for Strapi website products).
+ */
 export async function preparePayment(request: CheckoutRequest, beneficiary: Beneficiary): Promise<PreparedPayment> {
   const attribution = { utmSource: "web", pageUrl: window.location.href };
   const body =
@@ -62,7 +66,12 @@ export async function preparePayment(request: CheckoutRequest, beneficiary: Bene
       items: lines,
     };
   }
-  const payment = await api.post<PreparedPayment | null>("/prepare-order-payment", body);
+  let payment: PreparedPayment | null;
+  try {
+    payment = await api.post<PreparedPayment | null>("/app/v1/prepare-order-payment", body);
+  } catch (e) {
+    throw friendlyCartError(e);
+  }
   if (!payment?.order_id) throw new Error("We couldn't start your payment. Please try again.");
   if (payment.gateway === "RAZORPAY" && !payment.gateway_order_id) throw new Error("Payment provider didn't respond. Please try again.");
   if (payment.gateway === "CASHFREE" && !payment.payment_session_id) throw new Error("Payment provider didn't respond. Please try again.");

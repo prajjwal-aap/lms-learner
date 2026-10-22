@@ -14,6 +14,9 @@ export type CartItem = {
   quantity: number;
   batchId: string | null;
   media: string | null;
+  /** Set on items added through the app cart (POST /app/v1/cart/items). */
+  planId?: string | null;
+  liveSessionId?: string | null;
   addedAt: string;
 };
 
@@ -27,7 +30,15 @@ export type Cart = {
   items: CartItem[];
 };
 
-export type AddToCartInput = { productSlug: string; productType: CartProductType; batchId?: string };
+/** POST /app/v1/cart/items (§6): catalog product id + plan (default plan when missing) + slot for live products. */
+export type AddToCartInput = {
+  productId: string;
+  /** Not sent to the server; used by mock mode and analytics. */
+  productSlug: string;
+  productType: CartProductType;
+  planId?: string;
+  liveSessionId?: string;
+};
 
 /* ---- Checkout ---- */
 
@@ -48,7 +59,7 @@ export type CheckoutRequest =
 
 export type Gateway = "RAZORPAY" | "CASHFREE" | "FREE";
 
-/** POST /prepare-order-payment response (§7.1). */
+/** POST /app/v1/prepare-order-payment response (§7.1). */
 export type PreparedPayment = {
   order_id: string;
   payment_order_id: string;
