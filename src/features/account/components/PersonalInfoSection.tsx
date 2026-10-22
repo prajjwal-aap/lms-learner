@@ -1,12 +1,12 @@
 "use client";
 
-import { CircleCheck } from "lucide-react";
+import { CircleCheck, IdCard } from "lucide-react";
 import { useState, type FormEvent } from "react";
-import { useProfile, useUpdateProfile } from "../api/account.queries";
+import { useUpdateProfile } from "../api/account.queries";
 import type { Profile } from "../types";
-import { AccountShell, AccountStatus, FormField, accountCard, inputClass, primaryButton } from "./AccountShell";
+import { FormField, SectionHeader, accountCard, inputClass, primaryButton } from "./AccountShell";
 
-/** Fields the update-profile API accepts, minus email (managed on Phone & email). */
+/** Fields the update-profile API accepts, minus email (managed in the Phone & email section). */
 const FIELDS = ["name", "dob", "tob", "pob", "country", "state"] as const;
 type Field = (typeof FIELDS)[number];
 type Values = Record<Field, string>;
@@ -20,17 +20,8 @@ const valuesOf = (p: Profile): Values => ({
   state: p.state ?? "",
 });
 
-/** Name, birth details and location (POST /users/update-profile, changed fields only). */
-export function PersonalInfoScreen() {
-  const { data: profile, isLoading, error } = useProfile();
-  return (
-    <AccountShell title="Personal information" subtitle="Your birth details are used to personalise charts and course recommendations.">
-      {profile ? <PersonalInfoForm key={profile.id} profile={profile} /> : <AccountStatus loading={isLoading} error={error} />}
-    </AccountShell>
-  );
-}
-
-function PersonalInfoForm({ profile }: { profile: Profile }) {
+/** Profile section: name, birth details and location (POST /users/update-profile, changed fields only). */
+export function PersonalInfoSection({ profile }: { profile: Profile }) {
   const save = useUpdateProfile();
   const [saved, setSaved] = useState<Values>(() => valuesOf(profile));
   const [values, setValues] = useState<Values>(saved);
@@ -60,7 +51,8 @@ function PersonalInfoForm({ profile }: { profile: Profile }) {
   };
 
   return (
-    <form onSubmit={submit} className={`${accountCard} space-y-5`}>
+    <form id="personal-info" onSubmit={submit} className={`${accountCard} scroll-mt-24 space-y-5`}>
+      <SectionHeader icon={IdCard} title="Personal information" subtitle="Your birth details are used to personalise charts and course recommendations." />
       <FormField id="name" label="Full name" required>
         <input id="name" value={values.name} onChange={set("name")} required maxLength={80} autoComplete="name" className={inputClass} />
       </FormField>

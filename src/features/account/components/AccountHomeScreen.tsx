@@ -1,6 +1,6 @@
 "use client";
 
-import { ChevronRight, IdCard, Mail, Receipt, Trash, User, type LucideIcon } from "lucide-react";
+import { ChevronRight, Receipt, Trash, User, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 import { ROUTES } from "@/config/routes";
@@ -10,10 +10,10 @@ import { DeleteAccountDialog } from "./DeleteAccountDialog";
 import { ProfileAvatar } from "./ProfileAvatar";
 
 const SECTIONS: { href: string; icon: LucideIcon; title: string; text: string }[] = [
-  { href: ROUTES.account.profile, icon: User, title: "View profile", text: "See your public profile" }, // was: "See your profile and the community posts you've shared"
-  { href: ROUTES.account.personalInfo, icon: IdCard, title: "Personal information", text: "Update your name, birth details and location" },
+  // Personal information and Phone & email live inside View profile now.
+  // With Community back, mention "the community posts you've shared" here again.
+  { href: ROUTES.account.profile, icon: User, title: "View profile", text: "Edit your personal information, birth details, phone and email" },
   { href: ROUTES.account.purchases, icon: Receipt, title: "Purchase history", text: "View your orders and download purchased e-books" },
-  { href: ROUTES.account.contact, icon: Mail, title: "Phone & email", text: "See your registered phone number and update your email" },
 ];
 
 /** "My account" hub: greeting with photo, section cards, logout and delete account. */
@@ -47,7 +47,7 @@ export function AccountHomeScreen() {
       </section>
 
       {/* Sections */}
-      <nav aria-label="Account sections" className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <nav aria-label="Account sections" className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
         {SECTIONS.map((s) => (
           <Link
             key={s.href}

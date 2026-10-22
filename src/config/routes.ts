@@ -19,8 +19,9 @@ export const ROUTES = {
   account: {
     home: "/account",
     profile: "/account/profile",
-    personalInfo: "/account/personal-info",
-    contact: "/account/contact",
+    // Personal information and Phone & email are sections of the profile page now.
+    personalInfo: "/account/profile#personal-info",
+    contact: "/account/profile#contact",
     purchases: "/account/purchases",
     order: (orderId: string) => `/account/purchases/${orderId}`,
   },

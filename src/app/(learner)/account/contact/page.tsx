@@ -1,7 +1,7 @@
-import { ContactScreen } from "@/features/account";
+import { redirect } from "next/navigation";
+import { ROUTES } from "@/config/routes";
 
-export const metadata = { title: "Phone & email" };
-
+// Phone & email moved into the profile page; keep old links working.
 export default function ContactPage() {
-  return <ContactScreen />;
+  redirect(ROUTES.account.contact);
 }

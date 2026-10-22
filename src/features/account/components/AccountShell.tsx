@@ -1,4 +1,4 @@
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { ROUTES } from "@/config/routes";
@@ -34,6 +34,21 @@ export const inputClass =
 
 export const primaryButton =
   "inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-50";
+
+/** Icon badge + title + subtitle at the top of a profile section card. */
+export function SectionHeader({ icon: Icon, title, subtitle }: { icon: LucideIcon; title: string; subtitle?: string }) {
+  return (
+    <div className="mb-5 flex items-start gap-3 border-b border-gray-100 pb-4">
+      <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-600">
+        <Icon className="size-4" />
+      </span>
+      <div className="min-w-0">
+        <h2 className="text-base font-semibold text-gray-900">{title}</h2>
+        {subtitle && <p className="mt-0.5 text-sm text-gray-500">{subtitle}</p>}
+      </div>
+    </div>
+  );
+}
 
 /** Label + control + optional hint. */
 export function FormField({ id, label, hint, required, children }: { id: string; label: string; hint?: string; required?: boolean; children: ReactNode }) {

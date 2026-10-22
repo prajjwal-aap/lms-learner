@@ -1,7 +1,7 @@
-import { PersonalInfoScreen } from "@/features/account";
+import { redirect } from "next/navigation";
+import { ROUTES } from "@/config/routes";
 
-export const metadata = { title: "Personal information" };
-
+// Personal information moved into the profile page; keep old links working.
 export default function PersonalInfoPage() {
-  return <PersonalInfoScreen />;
+  redirect(ROUTES.account.personalInfo);
 }
