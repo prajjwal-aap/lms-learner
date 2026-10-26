@@ -12,6 +12,9 @@ export function ProfileMenu() {
   const logout = useLogout();
   const { data: learner } = useCurrentLearner();
   const initial = learner?.name.trim().charAt(0).toUpperCase();
+  // A photo URL that doesn't load (deleted / private object) falls back to the initial instead of a broken image.
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const photo = learner?.avatarUrl && learner.avatarUrl !== failedSrc ? learner.avatarUrl : null;
 
   return (
     <div className="relative">
@@ -22,9 +25,9 @@ export function ProfileMenu() {
         onClick={() => setOpen((o) => !o)}
         className="flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-gray-300 bg-gray-200 text-gray-500 transition-all hover:ring-2 hover:ring-purple-300"
       >
-        {learner?.avatarUrl ? (
+        {photo ? (
           // eslint-disable-next-line @next/next/no-img-element -- avatar host is user-uploaded S3, not in next/image config
-          <img alt="" className="h-full w-full object-cover" src={learner.avatarUrl} />
+          <img alt="" className="h-full w-full object-cover" src={photo} onError={() => setFailedSrc(photo)} />
         ) : initial ? (
           <span className="text-sm font-semibold text-gray-600">{initial}</span>
         ) : (

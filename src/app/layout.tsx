@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Plus_Jakarta_Sans, Playfair_Display } from "next/font/google";
+import { Playfair_Display, Schibsted_Grotesk } from "next/font/google";
 import { Providers } from "./providers";
 import "./globals.css";
 
-const jakarta = Plus_Jakarta_Sans({ variable: "--font-jakarta", subsets: ["latin"] });
+const schibsted = Schibsted_Grotesk({ variable: "--font-schibsted-grotesk", subsets: ["latin"] });
 const playfair = Playfair_Display({ variable: "--font-playfair", subsets: ["latin"], style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${playfair.variable}`}>
+    <html lang="en" className={`${schibsted.variable} ${playfair.variable}`}>
       <body className="antialiased">
         <Providers>{children}</Providers>
       </body>

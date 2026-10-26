@@ -14,7 +14,7 @@ export function ActiveLearnerNavTabs() {
 /** Icon-over-label tabs; `pathname` decides which one is active. */
 export function LearnerNavTabs({ pathname }: { pathname: string }) {
   return (
-    <nav aria-label="Main navigation" className="no-scrollbar flex items-center gap-5 overflow-x-auto md:gap-10">
+    <nav aria-label="Main navigation" className="no-scrollbar flex items-center gap-6 overflow-x-auto md:gap-8 lg:gap-12">
       {LEARNER_NAV.map((item) => {
         const active = pathname.startsWith(item.href);
         return (
@@ -30,7 +30,7 @@ export function LearnerNavTabs({ pathname }: { pathname: string }) {
             <span className="mb-1 transition-transform group-hover:scale-105">
               <NavIconSvg name={item.icon} active={active} />
             </span>
-            <span className="hidden max-w-24 truncate text-xs font-semibold uppercase tracking-wider sm:block">
+            <span className="hidden whitespace-nowrap text-xs font-semibold uppercase tracking-wider md:block">
               {item.label}
             </span>
             {active && <span className="absolute -bottom-2.5 left-0 right-0 h-[3px] rounded-t-[3px] bg-purple-700" />}

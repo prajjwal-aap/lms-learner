@@ -1,7 +1,7 @@
 "use client";
 
 import { Camera, LoaderCircle, User } from "lucide-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import { useUploadProfilePhoto } from "../api/account.queries";
 
@@ -18,14 +18,17 @@ type Props = {
 export function ProfileAvatar({ name, avatarUrl, size = "h-24 w-24 text-3xl", editable = false }: Props) {
   const input = useRef<HTMLInputElement>(null);
   const upload = useUploadProfilePhoto();
+  // A photo URL that doesn't load (deleted / private object) falls back to the initial instead of a broken image.
+  const [failedSrc, setFailedSrc] = useState<string | null>(null);
+  const photo = avatarUrl && avatarUrl !== failedSrc ? avatarUrl : null;
 
   return (
     <div className="flex flex-col items-center gap-2">
       <div className={cn("relative shrink-0", size)}>
         <div className="flex h-full w-full items-center justify-center overflow-hidden rounded-full bg-brand-100 font-bold text-brand-700 ring-4 ring-white shadow-sm">
-          {avatarUrl ? (
+          {photo ? (
             // eslint-disable-next-line @next/next/no-img-element -- avatar host is user-uploaded S3, not in next/image config
-            <img src={avatarUrl} alt="" className="h-full w-full object-cover" />
+            <img src={photo} alt="" className="h-full w-full object-cover" onError={() => setFailedSrc(photo)} />
           ) : (
             name.trim().charAt(0).toUpperCase() || <User className="size-[1em]" />
           )}

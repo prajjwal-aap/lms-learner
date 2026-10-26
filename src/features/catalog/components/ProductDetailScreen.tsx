@@ -127,6 +127,13 @@ export function ProductDetailScreen({ slug }: { slug: string }) {
                     {product.rating.avg.toFixed(1)} ({product.rating.count_display ?? product.rating.count} ratings)
                   </span>
                 )}
+                {/* null when nobody has enrolled yet (§5.1) → no line */}
+                {product.enrolled_display && (
+                  <span>
+                    <Users className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />
+                    {product.enrolled_display} students enrolled
+                  </span>
+                )}
                 {product.mentors.length > 0 && (
                   <span>
                     <UserRound className="mr-1.5 inline-block size-3.5 align-[-0.125em] text-amber-300" />

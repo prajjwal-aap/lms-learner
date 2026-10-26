@@ -7,19 +7,19 @@
  */
 @theme {
   /* ---- Fonts ---- */
-  --font-sans: var(--font-jakarta), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-schibsted-grotesk), ui-sans-serif, system-ui, sans-serif;
   --font-serif: var(--font-playfair), ui-serif, Georgia, serif;
 
   /* Typography roles (font-<role> + text-<role>) */
-  --font-headline-xl: var(--font-jakarta), sans-serif;
-  --font-headline-xl-mobile: var(--font-jakarta), sans-serif;
-  --font-headline-lg: var(--font-jakarta), sans-serif;
-  --font-headline-md: var(--font-jakarta), sans-serif;
-  --font-body-lg: var(--font-jakarta), sans-serif;
-  --font-body-md: var(--font-jakarta), sans-serif;
-  --font-body-sm: var(--font-jakarta), sans-serif;
-  --font-label-md: var(--font-jakarta), sans-serif;
-  --font-label-sm: var(--font-jakarta), sans-serif;
+  --font-headline-xl: var(--font-schibsted-grotesk), sans-serif;
+  --font-headline-xl-mobile: var(--font-schibsted-grotesk), sans-serif;
+  --font-headline-lg: var(--font-schibsted-grotesk), sans-serif;
+  --font-headline-md: var(--font-schibsted-grotesk), sans-serif;
+  --font-body-lg: var(--font-schibsted-grotesk), sans-serif;
+  --font-body-md: var(--font-schibsted-grotesk), sans-serif;
+  --font-body-sm: var(--font-schibsted-grotesk), sans-serif;
+  --font-label-md: var(--font-schibsted-grotesk), sans-serif;
+  --font-label-sm: var(--font-schibsted-grotesk), sans-serif;
 
   --text-headline-xl: 36px;
   --text-headline-xl--line-height: 44px;
