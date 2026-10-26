@@ -29,7 +29,7 @@ function loadVdoApi() {
 }
 
 type Props = {
-  playback: Extract<Playback, { provider: "VDOCIPHER" | "MOCK_MEDIA" }>;
+  playback: Extract<Playback, { provider: "VDOCIPHER" | "DYNTUBE" | "MOCK_MEDIA" }>;
   courseId: string;
   lessonId: string;
   title: string;
@@ -39,11 +39,12 @@ type Props = {
   onProgressMaybeChanged: () => void;
 };
 
-/** VdoCipher web player (or a plain <video> in mock mode) wired to progress heartbeats. */
+/** VdoCipher web player, or our own <video> (DynTube HLS / mock mode), wired to progress heartbeats. */
 export function VideoPlayer({ playback, courseId, lessonId, title, durationSec, onEnded, onProgressMaybeChanged }: Props) {
   const iframe = useRef<HTMLIFrameElement>(null);
   const video = useRef<HTMLVideoElement>(null);
   const [apiFailed, setApiFailed] = useState(false);
+  const [streamFailed, setStreamFailed] = useState(false);
   const callbacks = useRef({ onEnded, onProgressMaybeChanged });
   useEffect(() => {
     callbacks.current = { onEnded, onProgressMaybeChanged };
@@ -51,11 +52,35 @@ export function VideoPlayer({ playback, courseId, lessonId, title, durationSec, 
 
   useEffect(() => {
     let detach: (() => void) | null = null;
+    let destroyHls: (() => void) | null = null;
     let cancelled = false;
     const options = { courseId, lessonId, title, durationSec, onEnded: () => callbacks.current.onEnded() };
 
     if (playback.provider === "MOCK_MEDIA" && video.current) {
       detach = attachHeartbeat(video.current, options);
+    } else if (playback.provider === "DYNTUBE" && video.current) {
+      const el = video.current;
+      detach = attachHeartbeat(el, options);
+      // Safari (and iOS) play HLS natively; elsewhere hls.js feeds the stream through Media Source Extensions.
+      if (el.canPlayType("application/vnd.apple.mpegurl")) {
+        el.src = playback.url;
+      } else {
+        import("hls.js")
+          .then(({ default: Hls }) => {
+            if (cancelled) return;
+            if (!Hls.isSupported()) return setStreamFailed(true);
+            const hls = new Hls();
+            destroyHls = () => hls.destroy();
+            hls.on(Hls.Events.ERROR, (_, data) => {
+              if (!data.fatal) return;
+              hls.destroy();
+              setStreamFailed(true);
+            });
+            hls.loadSource(playback.url);
+            hls.attachMedia(el);
+          })
+          .catch(() => !cancelled && setStreamFailed(true));
+      }
     } else if (playback.provider === "VDOCIPHER") {
       loadVdoApi()
         .then(() => {
@@ -73,7 +98,9 @@ export function VideoPlayer({ playback, courseId, lessonId, title, durationSec, 
     }
     return () => {
       cancelled = true;
+      // Final heartbeat reads the position, so it goes before the stream is torn down.
       detach?.();
+      destroyHls?.();
       callbacks.current.onProgressMaybeChanged();
     };
   }, [playback, courseId, lessonId, title, durationSec]);
@@ -93,7 +120,7 @@ export function VideoPlayer({ playback, courseId, lessonId, title, durationSec, 
         ) : (
           <video
             ref={video}
-            src={playback.url}
+            src={playback.provider === "MOCK_MEDIA" ? playback.url : undefined}
             controls
             autoPlay
             playsInline
@@ -104,6 +131,17 @@ export function VideoPlayer({ playback, courseId, lessonId, title, durationSec, 
             }}
             className="h-full w-full bg-black object-contain"
           />
+        )}
+        {/* VdoCipher draws its own watermark; our <video> needs one on top. */}
+        {playback.provider === "DYNTUBE" && playback.watermark_text && (
+          <span className="pointer-events-none absolute right-4 top-4 select-none text-sm font-semibold tracking-widest text-white/30" aria-hidden="true">
+            {playback.watermark_text}
+          </span>
+        )}
+        {streamFailed && (
+          <p className="absolute inset-0 flex items-center justify-center bg-black/80 px-6 text-center text-sm text-white">
+            This video can&apos;t be played right now. Please refresh and try again.
+          </p>
         )}
         {apiFailed && (
           <p className="absolute inset-x-0 bottom-0 bg-black/70 px-4 py-1.5 text-center text-xs text-white/80">

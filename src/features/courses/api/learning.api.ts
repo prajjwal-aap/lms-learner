@@ -186,9 +186,13 @@ export async function startPlayback(courseId: string, lessonId: string): Promise
   );
   const watermark_text = typeof p?.watermark_text === "string" ? p.watermark_text : "";
   const expires_in_sec = typeof p?.expires_in_sec === "number" ? p.expires_in_sec : 300;
+  const resume_at_sec = typeof p?.resume_at_sec === "number" ? p.resume_at_sec : 0;
   if (p?.provider === "VDOCIPHER" && typeof p.otp === "string" && typeof p.playback_info === "string") {
-    return { provider: "VDOCIPHER", otp: p.otp, playback_info: p.playback_info, resume_at_sec: typeof p.resume_at_sec === "number" ? p.resume_at_sec : 0, expires_in_sec, watermark_text };
+    return { provider: "VDOCIPHER", otp: p.otp, playback_info: p.playback_info, resume_at_sec, expires_in_sec, watermark_text };
   }
+  // `hls_url_web` is the browser stream; `hls_url` is the app one, kept as a fallback.
+  const hls = typeof p?.hls_url_web === "string" && p.hls_url_web ? p.hls_url_web : p?.hls_url;
+  if (p?.provider === "DYNTUBE" && typeof hls === "string" && hls) return { provider: "DYNTUBE", url: hls, resume_at_sec, expires_in_sec, watermark_text };
   if (p?.provider === "SIGNED_URL" && typeof p.url === "string") return { provider: "SIGNED_URL", url: p.url, expires_in_sec, watermark_text };
   throw new Error("This lesson can't be played right now. Please try again later.");
 }

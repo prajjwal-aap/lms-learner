@@ -106,6 +106,8 @@ export type LessonDetail = {
 
 export type Playback =
   | { provider: "VDOCIPHER"; otp: string; playback_info: string; expires_in_sec: number; resume_at_sec: number; watermark_text: string }
+  /** DynTube HLS stream (.m3u8), played in our own <video> via hls.js. */
+  | { provider: "DYNTUBE"; url: string; expires_in_sec: number; resume_at_sec: number; watermark_text: string }
   | { provider: "SIGNED_URL"; url: string; expires_in_sec: number; watermark_text: string }
   /** Mock mode only: a plain media URL for the native <video> player. */
   | { provider: "MOCK_MEDIA"; url: string; expires_in_sec: number; resume_at_sec: number; watermark_text: string };
