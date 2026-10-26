@@ -244,6 +244,24 @@ export async function openEbook(publicationId: string): Promise<EbookSession> {
   return normalizeEbook(await api.post<Record<string, unknown>>(`/lms/v1/me/publications/${encodeURIComponent(publicationId)}/open`, { device_id: getDeviceId() }));
 }
 
+export type PurchasedEbook = { url: string; title: string };
+
+/**
+ * Order-based ebook (§8.3): the file link from GET /og-order/:id/product-details. Re-read on every open rather
+ * than passed through the URL, so a link the backend rotates or signs is always current.
+ */
+export async function openPurchasedEbook(orderId: string, productId: string): Promise<PurchasedEbook> {
+  if (mocked()) {
+    await mockDelay(200);
+    return { url: SAMPLE_PDF_URL, title: "E-book" };
+  }
+  const d = await api.get<DeliveredDto | null>(`/og-order/${encodeURIComponent(orderId)}/product-details`);
+  const row = (d?.ebooks ?? []).find((r) => String(r.productId ?? r.id ?? "") === productId);
+  if (!row) throw notFound();
+  if (!row.downloadUrl) throw new ApiError(404, "The e-book file hasn't been added to your account yet.", "FILE_NOT_READY");
+  return { url: row.downloadUrl, title: row.titleSnapshot || "E-book" };
+}
+
 /** POST …/progress (§9.10) — the page the reader is on. */
 export async function saveEbookPage(publicationId: string, page: number): Promise<void> {
   if (mocked()) {

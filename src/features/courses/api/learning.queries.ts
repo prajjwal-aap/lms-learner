@@ -10,6 +10,7 @@ import {
   listLibrary,
   listPurchasedContent,
   openEbook,
+  openPurchasedEbook,
   type LibraryQuery,
 } from "./learning.api";
 import type { LibraryCard } from "../types";
@@ -23,6 +24,7 @@ export const learningKeys = {
   course: (courseId: string) => ["learning", "course", courseId] as const,
   lesson: (courseId: string, lessonId: string) => ["learning", "lesson", courseId, lessonId] as const,
   ebook: (publicationId: string) => ["learning", "ebook", publicationId] as const,
+  purchasedEbook: (orderId: string, productId: string) => ["learning", "ebook", "order", orderId, productId] as const,
 };
 
 export function useLibrary(query: LibraryQuery) {
@@ -65,6 +67,15 @@ export const useLessonDetail = (courseId: string, lessonId: string) =>
 /** Opening an ebook issues a fresh signed URL; never reuse a cached one. */
 export const useEbook = (publicationId: string) =>
   useQuery({ queryKey: learningKeys.ebook(publicationId), queryFn: () => openEbook(publicationId), retry: noClientRetry, staleTime: 0, gcTime: 0 });
+
+export const usePurchasedEbook = (orderId: string, productId: string) =>
+  useQuery({
+    queryKey: learningKeys.purchasedEbook(orderId, productId),
+    queryFn: () => openPurchasedEbook(orderId, productId),
+    retry: noClientRetry,
+    staleTime: 0,
+    gcTime: 0,
+  });
 
 /** Ticks / progress come from the server, so refetch the course home after completing. */
 export function useCompleteLesson(courseId: string) {

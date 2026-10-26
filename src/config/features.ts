@@ -3,7 +3,7 @@
  * module is down or not built yet. Set NEXT_PUBLIC_MOCK_FEATURES to a comma list
  * ("courses,live-sessions") or "all".
  */
-export type MockableFeature = "auth" | "onboarding" | "account" | "courses" | "live-sessions" | "store" | "masterclasses";
+export type MockableFeature = "auth" | "onboarding" | "account" | "courses" | "live-sessions" | "store" | "masterclasses" | "notifications";
 
 const mocked = new Set(
   (process.env.NEXT_PUBLIC_MOCK_FEATURES ?? "")

@@ -11,9 +11,11 @@ const TYPE_LABEL = { COURSE: "Course", PUBLICATION: "E-book", LIVE_SESSION: "Liv
 export function libraryHref(card: LibraryCard) {
   if (card.access.status === "EXPIRED") return card.product_slug ? ROUTES.product(card.product_slug) : ROUTES.store;
   if (card.purchase) {
-    // Order-based purchases (§8.3) have no LMS ids: ebooks open their download link, live classes go to Live
+    // Order-based purchases (§8.3) have no LMS ids: ebooks open their file in the reader, live classes go to Live
     // Sessions, courses open by product id (the course page explains if the course isn't in the player yet).
-    if (card.resource.type === "PUBLICATION") return card.purchase.downloadUrl ?? ROUTES.account.order(card.purchase.orderId);
+    if (card.resource.type === "PUBLICATION") {
+      return card.purchase.downloadUrl ? ROUTES.purchasedEbook(card.purchase.orderId, card.purchase.productId) : ROUTES.account.order(card.purchase.orderId);
+    }
     if (card.resource.type === "LIVE_SESSION") return card.purchase.replayUrl ?? ROUTES.liveSessions;
     return ROUTES.course(card.purchase.productId);
   }
@@ -27,7 +29,7 @@ function ctaLabel(card: LibraryCard) {
   if (card.access.status === "EXPIRED") return "Renew access";
   if (card.purchase) {
     // No file attached to the order yet (e.g. TagMango-era purchases): say so rather than a vague "View purchase".
-    if (card.resource.type === "PUBLICATION") return card.purchase.downloadUrl ? "Download e-book" : "File not available yet";
+    if (card.resource.type === "PUBLICATION") return card.purchase.downloadUrl ? "Read e-book" : "File not available yet";
     if (card.resource.type === "LIVE_SESSION") return card.purchase.replayUrl ? "Watch replay" : "View schedule";
     return "Start learning";
   }
@@ -123,7 +125,7 @@ export function LibraryCardView({ card }: { card: LibraryCard }) {
           className={
             expired
               ? "block w-full rounded-lg border border-brand-600 px-4 py-2.5 text-center text-xs font-semibold text-brand-700 transition-colors group-hover:bg-brand-50"
-              : "block w-full rounded-lg bg-black px-4 py-2.5 text-center text-xs font-semibold text-white transition-colors duration-200 group-hover:bg-gray-800"
+              : "block w-full rounded-lg bg-brand-700 px-4 py-2.5 text-center text-xs font-semibold text-white transition-colors duration-200 group-hover:bg-brand-800"
           }
         >
           {ctaLabel(card)}

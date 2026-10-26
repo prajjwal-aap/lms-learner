@@ -14,6 +14,8 @@ export const ROUTES = {
   course: (courseId: string) => `/courses/${courseId}`,
   lesson: (courseId: string, lessonId: string) => `/courses/${courseId}/learn/${lessonId}`,
   ebook: (publicationId: string) => `/ebooks/${publicationId}`,
+  /** Ebook bought through an order (no LMS publication yet): read from the order's file link. */
+  purchasedEbook: (orderId: string, productId: string) => `/ebooks/${productId}?order=${encodeURIComponent(orderId)}`,
   store: "/store",
   product: (slug: string) => `/store/${slug}`,
   account: {

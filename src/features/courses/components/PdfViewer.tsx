@@ -15,13 +15,15 @@ type Props = {
   onPageChange?: (page: number, pageCount: number) => void;
   /** Extra toolbar buttons (e.g. Download). */
   actions?: ReactNode;
+  /** Offered when pdf.js can't load the file (e.g. the file host doesn't allow cross-origin reads). */
+  fallbackUrl?: string;
   className?: string;
 };
 
 const ZOOMS = [0.75, 1, 1.25, 1.5, 2];
 
 /** In-app PDF reader (pdf.js): lazy page rendering, watermark on each page, page tracking. */
-export function PdfViewer({ url, watermark, initialPage = 1, onPageChange, actions, className }: Props) {
+export function PdfViewer({ url, watermark, initialPage = 1, onPageChange, actions, fallbackUrl, className }: Props) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [doc, setDoc] = useState<PDFDocumentProxy | null>(null);
   const [ratio, setRatio] = useState(1.414);
@@ -144,8 +146,15 @@ export function PdfViewer({ url, watermark, initialPage = 1, onPageChange, actio
 
       <div ref={scrollRef} className="relative min-h-0 flex-1 overflow-auto px-4 py-4" onContextMenu={(e) => e.preventDefault()}>
         {error ? (
-          <p className="mx-auto mt-10 max-w-md text-center text-sm text-red-600">{error}</p>
-        ) : !doc || !pageWidth ? (
+          <div className="mx-auto mt-10 flex max-w-md flex-col items-center gap-3 text-center text-sm">
+            <p className="text-red-600">{error}</p>
+            {fallbackUrl && (
+              <a href={fallbackUrl} target="_blank" rel="noopener noreferrer" className="font-semibold text-brand-600 hover:text-brand-700">
+                Open in a new tab
+              </a>
+            )}
+          </div>
+        ) :!doc || !pageWidth ? (
           <div className="mx-auto mt-10 flex flex-col items-center gap-3 text-sm text-gray-500">
             <LoaderCircle className="size-6 animate-spin text-brand-600" />
             Opening document…
