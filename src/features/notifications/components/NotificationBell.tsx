@@ -105,7 +105,7 @@ function InboxPanel({ onClose }: { onClose: () => void }) {
       <div
         role="dialog"
         aria-label="Notifications"
-        className="fixed inset-x-4 top-16 z-50 flex max-h-[min(560px,calc(100vh-5rem))] flex-col overflow-hidden rounded-xl border border-gray-100 bg-white shadow-level-3 sm:absolute sm:inset-x-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-96"
+        className="fixed inset-x-4 top-16 z-50 flex max-h-[min(560px,calc(100dvh-10rem))] flex-col md:max-h-[min(560px,calc(100vh-5rem))] overflow-hidden rounded-xl border border-gray-100 bg-white shadow-level-3 sm:absolute sm:inset-x-auto sm:right-0 sm:top-auto sm:mt-2 sm:w-96"
       >
         <div className="flex items-center justify-between gap-3 px-4 pb-2 pt-3">
           <h2 className="text-sm font-bold text-gray-900">Notifications</h2>

@@ -1,6 +1,6 @@
 import { Suspense, type ReactNode } from "react";
 import { BrandMark } from "./BrandMark";
-import { ActiveLearnerNavTabs, LearnerNavTabs } from "./LearnerNavTabs";
+import { ActiveLearnerNavTabs, ActiveMobileTabBar, LearnerNavTabs, MobileTabBar } from "./LearnerNavTabs";
 
 /** Global top bar: logo, icon-over-label tabs, cart, notifications and profile slot. */
 export function LearnerHeader({ profileSlot, cartSlot, notificationSlot }: { profileSlot?: ReactNode; cartSlot?: ReactNode; notificationSlot?: ReactNode }) {
@@ -19,6 +19,10 @@ export function LearnerHeader({ profileSlot, cartSlot, notificationSlot }: { pro
           {profileSlot}
         </div>
       </div>
+
+      <Suspense fallback={<MobileTabBar pathname="" />}>
+        <ActiveMobileTabBar />
+      </Suspense>
     </header>
   );
 }

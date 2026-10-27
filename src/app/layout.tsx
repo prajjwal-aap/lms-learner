@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { Playfair_Display, Schibsted_Grotesk } from "next/font/google";
 import { Providers } from "./providers";
@@ -11,6 +11,9 @@ export const metadata: Metadata = {
   title: { default: "Occult Gurukul", template: "%s · Occult Gurukul" },
   description: "Learner portal for Occult Gurukul — courses, live sessions and community",
 };
+
+// "cover" exposes env(safe-area-inset-*) so the phone tab bar clears the iPhone home indicator.
+export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
